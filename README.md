@@ -1,1 +1,3 @@
-# undata-test-task
+# Andata-test-task
+
+- [x] установить Quasar
