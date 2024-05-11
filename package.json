@@ -2,7 +2,7 @@
   "name": "andata-test-task",
   "version": "0.0.1",
   "description": "Andata test task description",
-  "productName": "Quasar App",
+  "productName": "Andata test task",
   "author": "maxgoover <maxgoover@gmail.com>",
   "private": true,
   "scripts": {
