@@ -1,7 +1,7 @@
 <template>
   <q-footer>
-    <q-toolbar class="flex flex-center text-accent-font">
-      Андата &copy; {{ currentYear }}
+    <q-toolbar class="flex flex-center text-dark">
+      <span>Андата &copy; {{ currentYear }}</span>
     </q-toolbar>
   </q-footer>
 </template>

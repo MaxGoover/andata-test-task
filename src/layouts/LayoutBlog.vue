@@ -1,16 +1,28 @@
 <template>
-  <q-layout class="bg-grey-1" view="lhh lpr lFf">
-    <BlogHeader class="bg-gradient" />
-    <q-page-container class="q-ma-md">
-      <router-view />
-    </q-page-container>
-    <BlogFooter class="bg-grey-1" />
-  </q-layout>
+  <div>
+    <q-layout class="bg-grey-1" view="lhh lpr lFf">
+      <BlogHeader class="bg-gradient" />
+      <q-page-container class="q-ma-md">
+        <router-view />
+      </q-page-container>
+      <BlogFooter class="bg-grey-1" />
+    </q-layout>
+
+    <!--Модальное окно добавления статьи-->
+    <ArticlesCreateModal
+      :hideModal="articles.hideCreateModal"
+      :isShowed="articles.isShowedCreateModal"
+    />
+  </div>
 </template>
 
 <script setup>
+import { useArticlesStore } from 'src/stores/articles'
+import ArticlesCreateModal from 'components/articles/ArticlesCreateModal.vue'
 import BlogFooter from 'components/blog/BlogFooter.vue'
 import BlogHeader from 'components/blog/BlogHeader.vue'
+
+const articles = useArticlesStore()
 </script>
 
 <style lang="sass" scoped>

@@ -1,8 +1,39 @@
 @import 'fonts/lato'
 @import 'fonts/montserrat'
 
+body
+    font-family: Montserrat, Lato, sans-serif
+
 .font-lato
     font-family: Lato, sans-serif
 
+// насыщенность шрифта
+.text-weight-semi-bold
+    font-weight: 600
+
+.text-weight-extra-light
+    font-weight: 200
+
 .text-decoration-none
     text-decoration: none
+
+// цикл для размеров шрифтов (от 10рх до 40рх с разницей в 2рх)
+@for $i from 0 through 15
+    $size: 10 + $i * 2
+
+    .fs-#{$size}
+        font-size: #{$size}px
+
+// цикл для минимальной высоты (от 0 до 100vh)
+@for $k from 0 through 10
+    $size: 0 + $k * 10
+
+    .min-height-#{$size}
+        min-height: #{$size}vh
+
+// цикл для минимальной ширины (от 0 до 100vw)
+@for $j from 0 through 10
+    $size: 0 + $j * 10
+
+    .min-width-#{$size}
+        min-width: #{$size}vw

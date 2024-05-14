@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
   parserOptions: {
-    ecmaVersion: 2021, // Allows for the parsing of modern ECMAScript features
+    ecmaVersion: 2021,
   },
   env: {
     node: true,
@@ -20,6 +20,7 @@ module.exports = {
     'vue/no-v-html': 'off',
     'vue/require-default-prop': 'off',
     'vue/singleline-html-element-content-newline': 'off',
+    'vue/attribute-hyphenation': 0,
     'vue/html-self-closing': [
       'warn',
       {

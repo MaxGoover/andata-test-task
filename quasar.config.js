@@ -6,7 +6,7 @@ module.exports = configure(function (/* ctx */) {
     boot: ['axios', 'consts', 'i18n'],
     css: ['app.sass'],
     extras: [
-      'material-icons', // optional, you are not bound to it
+      'material-icons',
       'mdi-v7',
       'roboto-font', // optional, you are not bound to it
     ],
