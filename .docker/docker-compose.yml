@@ -4,12 +4,11 @@ networks:
 
 services:
   nginx:
-    image: nginx:latest
-    # image: nginx:alpine
+    image: nginx:alpine
     ports:
       - '82:80'
     volumes:
-      - ../src:/var/www/html
+      - ../backend/src:/var/www/html
       - ./nginx/conf.d:/etc/nginx/conf.d
 
   php:
@@ -18,7 +17,7 @@ services:
       args:
         - PHP_VERSION=${PHP_VERSION}
     volumes:
-      - ../src:/var/www/html
+      - ../backend/src:/var/www/html
 
   mysql:
     image: mysql:${MYSQL_VERSION}
