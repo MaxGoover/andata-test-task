@@ -1,0 +1,29 @@
+networks:
+  backend:
+    driver: bridge
+
+services:
+  nginx:
+    image: nginx:latest
+    # image: nginx:alpine
+    ports:
+      - '82:80'
+    volumes:
+      - ../src:/var/www/html
+      - ./nginx/conf.d:/etc/nginx/conf.d
+
+  php:
+    build:
+      context: ./php
+      args:
+        - PHP_VERSION=${PHP_VERSION}
+    volumes:
+      - ../src:/var/www/html
+
+  mysql:
+    image: mysql:${MYSQL_VERSION}
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+    volumes:
+      - ./mysql/volumes:/var/lib/mysql

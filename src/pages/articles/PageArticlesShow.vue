@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--Статья-->
-    <q-card v-if="Object.keys(articles.selected).length !== 0" class="q-mb-sm" bordered flat>
+    <q-card v-if="!isEmpty(articles.selected)" class="q-mb-sm" bordered flat>
       <q-card-section>
         <div class="text-weight-bold q-mb-xs font-lato">
           <span class="q-mr-lg">{{ articles.selected.author.username }}</span>
@@ -61,6 +61,7 @@
 </template>
 
 <script setup>
+import { isEmpty } from 'lodash'
 import { useArticlesStore } from 'stores/articles'
 import { useCommentsStore } from 'stores/comments'
 import { useRoute } from 'vue-router'
