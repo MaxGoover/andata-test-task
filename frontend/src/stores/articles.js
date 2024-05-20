@@ -29,7 +29,9 @@ export const useArticlesStore = defineStore('articles', {
     async index() {
       return axios
         .get('/articles')
-        .then(() => {})
+        .then((response) => {
+          console.log('response', response)
+        })
         .catch(() => {
           //   notify.error(i18n.global.t('message.error.articles.index'))
           this.list = [
@@ -120,14 +122,14 @@ export const useArticlesStore = defineStore('articles', {
      * Сохраняет статью.
      * @returns {Promise}
      */
-    async store() {
+    async create() {
       return axios
         .post('/articles', this.form)
         .then(() => {
           this.clearForm()
         })
         .catch(() => {
-          notify.error(i18n.global.t('message.error.articles.store'))
+          notify.error(i18n.global.t('message.error.articles.create'))
         })
     },
     /**

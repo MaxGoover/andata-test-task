@@ -1,0 +1,21 @@
+{
+  "name": "maxgoover/andata-test-task",
+  "type": "project",
+  "license": "Free",
+  "autoload": {
+    "psr-4": {
+      "app\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "maxgoover",
+      "email": "maxgoover@gmail.com"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "vlucas/phpdotenv": "^5.6",
+    "guzzlehttp/guzzle": "^7.8"
+  }
+}

@@ -19,7 +19,7 @@
           </q-btn>
         </div>
         <div class="col-3">
-          <q-btn class="full-width" color="indigo-5" no-caps unelevated @click="storeArticle()">
+          <q-btn class="full-width" color="indigo-5" no-caps unelevated @click="createArticle()">
             {{ $t('action.save') }}
           </q-btn>
         </div>
@@ -42,8 +42,8 @@ defineProps({
 
 const articles = useArticlesStore()
 
-const storeArticle = () => {
-  articles.store().then(() => {
+const createArticle = () => {
+  articles.create().then(() => {
     this.hideModal()
     notify.success(this.$t('menu.registries'))
   })

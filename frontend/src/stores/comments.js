@@ -20,14 +20,14 @@ export const useCommentsStore = defineStore('comments', {
      * Сохраняет комментарий.
      * @returns {Promise}
      */
-    async store() {
+    async create() {
       return axios
         .post('/comments', this.form)
         .then(() => {
           this.clearForm()
         })
         .catch(() => {
-          notify.error(i18n.global.t('message.error.comments.store'))
+          notify.error(i18n.global.t('message.error.comments.create'))
         })
     },
     /**
