@@ -11,5 +11,11 @@
     "javascriptreact",
     "typescript",
     "vue"
-  ]
+  ],
+  "[nginx]": {
+    "editor.defaultFormatter": "ahmadalli.vscode-nginx-conf"
+  },
+  "[dockerfile]": {
+    "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+  }
 }

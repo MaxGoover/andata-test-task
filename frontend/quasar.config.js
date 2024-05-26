@@ -36,15 +36,15 @@ module.exports = configure(function (/* ctx */) {
     },
     devServer: {
       open: false,
-    //   proxy: {
-    //     '/api': {
-    //       changeOrigin: true,
-    //       pathRewrite: {
-    //         '^/api': '',
-    //       },
-    //       target: 'http://localhost:82',
-    //     },
-    //   },
+      proxy: {
+        '/api': {
+        //   changeOrigin: true,
+          //   pathRewrite: {
+          //     '^/api': '',
+          //   },
+          target: 'http://localhost:82/api',
+        },
+      },
     },
     framework: {
       config: {},

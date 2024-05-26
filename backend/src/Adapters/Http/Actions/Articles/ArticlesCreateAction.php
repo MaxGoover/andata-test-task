@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Actions\Articles;
+namespace App\Adapters\Http\Actions\Articles;
 
 use App\Adapters\Http\JsonResponse;
 use App\Entities\Article\Article;
@@ -11,7 +11,7 @@ use Psr\Http\Message\ServerRequestInterface;
 
 final class ArticlesCreateAction
 {
-    public function handle(ServerRequestInterface $request)
+    public static function handle(ServerRequestInterface $request)
     {
         /**
          * @var $data['author_name'] string
@@ -27,6 +27,6 @@ final class ArticlesCreateAction
         $article->content = $data['content'];
         ArticleCreateCommand::handle($article);
 
-        return new JsonResponse('Article saved successfully');
+        return new JsonResponse(['message' => 'Article saved successfully']);
     }
 }

@@ -2,18 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Actions\Articles;
+namespace App\Adapters\Http\Actions\Articles;
 
 use App\Adapters\Http\JsonResponse;
 use App\UseCases\Article\ArticleIndexCommand;
-use Psr\Http\Message\ServerRequestInterface;
-
 final class ArticlesIndexAction
 {
-    public function handle(ServerRequestInterface $request)
+    public static function handle()
     {
-        ArticleIndexCommand::handle();
-
-        return new JsonResponse('Articles indexed successfully');
+        return new JsonResponse([
+            'data' => ArticleIndexCommand::handle(),
+            'message' => 'Articles indexed successfully',
+        ]);
     }
 }

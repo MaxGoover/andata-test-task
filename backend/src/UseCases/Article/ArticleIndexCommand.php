@@ -6,7 +6,7 @@ namespace App\UseCases\Article;
 
 use App\Entities\Article\ArticleRepository;
 
-final class ArticleCreateCommand
+final class ArticleIndexCommand
 {
     public static function handle()
     {

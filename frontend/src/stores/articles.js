@@ -28,7 +28,7 @@ export const useArticlesStore = defineStore('articles', {
      */
     async index() {
       return axios
-        .get('/articles')
+        .get('/api/articles')
         .then((response) => {
           console.log('response', response)
         })
