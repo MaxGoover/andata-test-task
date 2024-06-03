@@ -19,7 +19,7 @@
           </q-btn>
         </div>
         <div class="col-3">
-          <q-btn class="full-width" color="indigo-5" no-caps unelevated @click="createArticle()">
+          <q-btn class="full-width" color="indigo-5" no-caps unelevated @click="createArticle">
             {{ $t('action.save') }}
           </q-btn>
         </div>
@@ -33,7 +33,7 @@ import { useArticlesStore } from 'src/stores/articles'
 import ArticlesForm from 'components/articles/ArticlesForm.vue'
 import ComponentModal from 'components/common/ComponentModal.vue'
 import ComponentTitle from 'components/common/ComponentTitle.vue'
-import notify from 'src/utils/helpers/notify'
+// import notify from 'src/utils/helpers/notify'
 
 defineProps({
   hideModal: Function,
@@ -44,8 +44,7 @@ const articles = useArticlesStore()
 
 const createArticle = () => {
   articles.create().then(() => {
-    this.hideModal()
-    notify.success(this.$t('menu.registries'))
+    // this.hideModal()
   })
 }
 </script>
@@ -54,7 +53,7 @@ const createArticle = () => {
 .actions
   bottom: 0
   left: 0
-  padding: 40px 30px
+  padding: 20px 30px 40px 30px
   position: absolute
   right: 0
 </style>

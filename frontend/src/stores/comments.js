@@ -1,18 +1,21 @@
 import { defineStore } from 'pinia'
 import { i18n } from 'boot/i18n'
+import { ref } from 'vue'
 import axios from 'axios'
 import notify from 'src/utils/helpers/notify'
 
 export const useCommentsStore = defineStore('comments', {
   state: () => ({
+    count: 0,
     form: {
-      author: { email: '', username: '' },
-      content: '',
-      created_at: '2024-04-15 16:47:01',
-      id: 1,
-      title: '',
+      article_id: 0,
+      author_email: 'maxgoover@gmail.com',
+      author_username: 'MaxGoover',
+      content:
+        '<p>Каждый раз когда вижу эти спирали к фотографиям, прям слышу как где-то кричит сова.</p>',
+      title: 'Это - заголовок комментария',
     },
-    list: [], // список комментариев
+    list: ref([]), // список комментариев
   }),
 
   actions: {
@@ -22,9 +25,10 @@ export const useCommentsStore = defineStore('comments', {
      */
     async create() {
       return axios
-        .post('/comments', this.form)
+        .post('/api/comments/create', this.form)
         .then(() => {
           this.clearForm()
+          notify.success(i18n.global.t('message.success.comments.create'))
         })
         .catch(() => {
           notify.error(i18n.global.t('message.error.comments.create'))
@@ -35,18 +39,25 @@ export const useCommentsStore = defineStore('comments', {
      * @returns {void}
      */
     clearForm() {
-      this.form = {
-        author: {
-          email: '',
-          username: '',
-        },
-        content: '',
-        title: '',
-      }
+      this.form.author_email = ''
+      this.form.author_username = ''
+      this.form.content = ''
+      this.form.title = ''
+    },
+    setFormArticleId(id) {
+      this.form.article_id = id
+    },
+    /**
+     * Изменяет кол-во комментариев.
+     * @param {Number} count
+     * @returns {void}
+     */
+    setCount(count) {
+      this.count = count
     },
     /**
      * Изменяет список комментариев.
-     * @param {Array} - массив объектов комментариев
+     * @param {Array} comments
      * @returns {void}
      */
     setList(comments) {

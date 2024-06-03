@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y \
     curl
 
 # Install extensions for php
-RUN docker-php-ext-install mysqli
+RUN docker-php-ext-install pdo_mysql
 
 # Install composer (php package manager)
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer

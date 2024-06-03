@@ -57,6 +57,8 @@ services:
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     volumes:
       - ./mysql/volumes:/var/lib/mysql
+    ports:
+      - '8987:3306'
     networks:
       - app-network
 

@@ -31,6 +31,7 @@
         <q-editor
           v-model="v$.content.$model"
           class="full-width"
+          max-height="190px"
           :style="v$.content.$error ? 'border-color: var(--q-negative)' : ''"
         />
       </template>
@@ -38,7 +39,7 @@
 
     <!--Имя пользователя-->
     <q-input
-      v-model="v$.author.username.$model"
+      v-model="v$.author_username.$model"
       class="col-6"
       bg-color="white"
       clear-icon="close"
@@ -48,15 +49,15 @@
       label-color="grey-7"
       no-error-icon
       outlined
-      :error="v$.author.username.$error"
-      :error-message="v$.author.username.$errors.at(-1)?.$message"
+      :error="v$.author_username.$error"
+      :error-message="v$.author_username.$errors.at(-1)?.$message"
       :label="$t('field.username')"
       :title="$t('field.username')"
     />
 
     <!--Электронная почта-->
     <q-input
-      v-model="v$.author.email.$model"
+      v-model="v$.author_email.$model"
       class="col-6"
       bg-color="white"
       clear-icon="close"
@@ -66,8 +67,8 @@
       label-color="grey-7"
       no-error-icon
       outlined
-      :error="v$.author.email.$error"
-      :error-message="v$.author.email.$errors.at(-1)?.$message"
+      :error="v$.author_email.$error"
+      :error-message="v$.author_email.$errors.at(-1)?.$message"
       :label="$t('field.email')"
       :title="$t('field.email')"
     />
@@ -79,16 +80,14 @@ import { email, minLength, maxLength, required } from 'src/utils/helpers/validat
 import { storeToRefs } from 'pinia'
 import { useArticlesStore } from 'src/stores/articles'
 import { useVuelidate } from '@vuelidate/core'
-import validation from 'src/utils/consts/validation'
+import validation from 'src/utils/settings/validation'
 
 const validations = {
-  author: {
-    email: { required, email, maxLength: maxLength(validation.email.maxLength) },
-    username: {
-      required,
-      minLength: minLength(validation.username.minLength),
-      maxLength: maxLength(validation.username.maxLength),
-    },
+  author_email: { required, email, maxLength: maxLength(validation.email.maxLength) },
+  author_username: {
+    required,
+    minLength: minLength(validation.username.minLength),
+    maxLength: maxLength(validation.username.maxLength),
   },
   content: {
     required,

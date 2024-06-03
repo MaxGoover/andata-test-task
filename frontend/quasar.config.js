@@ -38,11 +38,11 @@ module.exports = configure(function (/* ctx */) {
       open: false,
       proxy: {
         '/api': {
-        //   changeOrigin: true,
-          //   pathRewrite: {
-          //     '^/api': '',
-          //   },
-          target: 'http://localhost:82/api',
+          changeOrigin: true,
+          pathRewrite: {
+            '^/api': '',
+          },
+          target: 'http://localhost',
         },
       },
     },

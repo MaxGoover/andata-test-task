@@ -9,10 +9,8 @@ const comments = useCommentsStore()
 export const useArticlesStore = defineStore('articles', {
   state: () => ({
     form: {
-      author: {
-        email: '',
-        username: '',
-      },
+      author_email: '',
+      author_username: '',
       content: '',
       title: '',
     },
@@ -30,51 +28,10 @@ export const useArticlesStore = defineStore('articles', {
       return axios
         .get('/api/articles')
         .then((response) => {
-          console.log('response', response)
+          this.setList(response.data.articles)
         })
         .catch(() => {
-          //   notify.error(i18n.global.t('message.error.articles.index'))
-          this.list = [
-            {
-              author: {
-                email: 'maxgoover@gmail.com',
-                username: 'MaxGoover',
-              },
-              content:
-                '<p>Недавно делал небольшой скрипт для браузера, который может рисовать спираль Фибоначчи поверх фотографий на веб-странице. Все это делалось для того, чтобы проверить свою догадку, по поводу форм встречающихся в природе - вписываются ли они в спираль или нет. Рисовать я ее хотел не поверх котов, а поверх фото, которые немного даже поинтереснее будут, и поэтому и пишу такое длинное предисловие, потому что в отличие от поста в личном блоге, здесь аудитория может отнестись к таком не сильно положительно. Но с другой стороны, все мы люди, поэтому я рискну рассказать об этом эксперименте тут на Хабре</p><p>В фотографии часто используется правило <a href="https://www.fotosklad.ru/expert/articles/vse-cto-vam-nuzno-znat-pro-zolotoe-secenie/" rel="noopener noreferrer nofollow">третей и золотое сечение </a>-  фраза буквально из статьи которая выдается первой по поиску в Яндексе, при запросе золотое сечение в фотографии. Вообще есть подозрение, что не все фото делаются специально по этому правилу,  но итоге почти все "красивые" фото оказываются соответствующими такому  правилу, и человек просто любуется таким фото, не подозревая что  любуется математикой. Мало того, любуясь фотографиями девушек, я обратил  внимание, что и там часто присутствует такое же золотое сечение -  женские формы и изгибы тела очень часто хорошо вписываются в золотую  спираль. Смотрите сами:  </p>',
-              countComments: 3,
-              created_at: '2024-04-15 16:46:01',
-              id: 1,
-              title: 'Почему это красиво? Странный эксперимент со спиралью Фибоначчи',
-              updated_at: '2024-04-15 16:46:01',
-            },
-            {
-              author: {
-                email: 'john_doe@gmail.com',
-                username: 'John Doe',
-              },
-              content:
-                '<p>Привет, Хабр! В последние годы курсы по вхождению в сферу IT стали чем-то обыденным, но действительно ли они так хороши и представляют собой выигрышный билет в индустрию? Можно ли достичь успеха, просто оплатив их и прослушав вебинары, или необходимо вложить дополнительные усилия? Обо всем этом я расскажу в данной статье.</p><h2>Продай мне эти курсы пожалуйста</h2><p>Сегодня часто говорят, что если раньше автомобили создавали инженеры, то сейчас этим занимаются скорее маркетологи. Аналогичное утверждение можно сделать и относительно курсов по IT. До наступления золотой лихорадки в этой сфере курсы проводили обычные разработчики, записывая свои уроки на шипящий микрофон. Они делились своим опытом по тем областям, в которых работали. Многие опытные специалисты в области IT получали свои знания, занимаясь самообразованием и исследуя профессиональную литературу вместе. Основная цель этих разработчиков заключалась не в продаже, а в обмене опытом и повышении уровня знаний в сфере.</p>',
-              countComments: 4,
-              created_at: '2024-04-14 16:46:01',
-              id: 2,
-              title: 'Есть ли смысл покупать курсы для вкатывания в IT',
-              updated_at: '2024-04-14 16:46:01',
-            },
-            {
-              author: {
-                email: 'maxgoover@gmail.com',
-                username: 'MaxGoover',
-              },
-              content:
-                '<p>Пользователь X под ником PatRyk <a href="https://twitter.com/Patrosi73/status/1789756239984890165" rel="noopener noreferrer nofollow">установил </a>Windows 11 на консоль Nintendo Switch. По его словам, у него получился «самый медленный компьютер в мире», что недалеко от правды: только загрузка рабочего стола занимает более двух минут.</p><p>Как <a href="https://www.windowslatest.com/2024/05/13/watch-dev-runs-windows-11-arm-on-nintendo-switch-using-qemu-linux-emulation/" rel="noopener noreferrer nofollow">уточняет </a>PatRyk, он использовал версию Windows 11 ARM с включённым KVM. Для начала он установил на SD-карту консоли Fedora Linux через Switchroot. По его словам, использование Switchroot-дистрибутива Fedora обязательно, потому что это единственная версия с поддержкой KVM.</p><p>После настройки Fedora он использовал <a href="https://gist.github.com/Vogtinator/293c4f90c5e92838f7e72610725905fd" rel="noopener noreferrer nofollow">скрипт </a>для запуска Windows 11 в эмуляторе QEMU, который ему пришлось модифицировать, чтобы он правильно работал со Switch. PatRyk выделил виртуальной машине 4 ядра и 3 ГБ ОЗУ, что близко к максимуму (у Switch всего 4 ГБ ОЗУ).</p>',
-              countComments: 5,
-              created_at: '2024-04-13 16:46:01',
-              id: 3,
-              title: 'Энтузиаст установил Windows 11 на Nintendo Switch',
-              updated_at: '2024-04-13 16:46:01',
-            },
-          ]
+          notify.error(i18n.global.t('message.error.articles.index'))
         })
     },
     /**
@@ -84,38 +41,14 @@ export const useArticlesStore = defineStore('articles', {
      */
     async show(id) {
       return axios
-        .get(`/articles/${id}`)
-        .then(() => {})
+        .get(`/api/articles/${id}`)
+        .then((response) => {
+          this.setSelected(response.data.article)
+          comments.setCount(response.data.countComments)
+          comments.setList(response.data.comments)
+        })
         .catch(() => {
-          //   notify.error(i18n.global.t('message.error.articles.index'))
-          this.setSelected({
-            author: { email: 'maxgoover@gmail.com', username: 'MaxGoover' },
-            content:
-              '<p>Недавно делал небольшой скрипт для браузера, который может рисовать спираль Фибоначчи поверх фотографий на вебстранице. Все это делалось для того, чтобы проверить свою догадку, по поводу форм встречающихся в природе - вписываются ли они в спираль или нет. Рисовать я ее хотел не поверх котов, а поверх фото, которые немного даже поинтереснее будут, и поэтому и пишу такое длинное предисловие, потому что в отличие от поста в личном блоге, здесь аудитория может отнестись к таком не сильно положительно. Но с другой стороны, все мы люди, поэтому я рискну рассказать об этом эксперименте тут на хабре</p><p>В фотографии часто используется правило <a href="https://www.fotosklad.ru/expert/articles/vse-cto-vam-nuzno-znat-pro-zolotoe-secenie/" rel="noopener noreferrer nofollow">третей и золотое сечение </a>-  фраза буквально из статьи которая выдается первой по поиску в Яндексе, при запросе золотое сечение в фотографии. Вообще есть подозрение, что не все фото делаются специально по этому правилу,  но итоге почти все "красивые" фото оказываются соответствующими такому  правилу, и человек просто любуется таким фото, не подозревая что  любуется математикой. Мало того, любуясь фотографиями девушек, я обратил  внимание, что и там часто присутствует такое же золотое сечение -  женские формы и изгибы тела очень часто хорошо вписываются в золотую  спираль. Смотрите сами:  </p>',
-            countComments: 3,
-            created_at: '2024-04-15 16:46:01',
-            id: 1,
-            title: 'Почему это красиво? Странный эксперимент со спиралью Фибоначчи',
-            updated_at: '2024-04-15 16:46:01',
-          })
-          comments.setList([
-            {
-              author: { email: 'maxgoover@gmail.com', username: 'MaxGoover' },
-              content:
-                '<p>Каждый раз когда вижу эти спирали к фотографиям, прям слышу как где-то кричит сова.</p>',
-              created_at: '2024-04-15 16:47:01',
-              id: 1,
-              title: 'Это - заголовок комментария',
-            },
-            {
-              author: { email: 'maxgoover@gmail.com', username: 'MaxGoover' },
-              content:
-                '<p>Каждый раз когда вижу эти спирали к фотографиям, прям слышу как где-то кричит сова.</p>',
-              created_at: '2024-04-15 16:47:01',
-              id: 1,
-              title: 'Это - заголовок комментария',
-            },
-          ])
+          notify.error(i18n.global.t('message.error.articles.index'))
         })
     },
     /**
@@ -124,12 +57,25 @@ export const useArticlesStore = defineStore('articles', {
      */
     async create() {
       return axios
-        .post('/articles', this.form)
+        .post('/api/articles/create', this.form)
         .then(() => {
           this.clearForm()
+          this.hideCreateModal()
+          notify.success(i18n.global.t('message.success.articles.create'))
         })
         .catch(() => {
           notify.error(i18n.global.t('message.error.articles.create'))
+        })
+    },
+    async getComments(id) {
+      return axios
+        .get(`/api/articles/${id}/get-comments`)
+        .then((response) => {
+          comments.setCount(response.data.countComments)
+          comments.setList(response.data.comments)
+        })
+        .catch(() => {
+          notify.error(i18n.global.t('message.error.articles.getComments'))
         })
     },
     /**
@@ -137,11 +83,10 @@ export const useArticlesStore = defineStore('articles', {
      * @returns {void}
      */
     clearForm() {
-      this.form = {
-        author_id: 1,
-        content: '',
-        title: '',
-      }
+      this.form.author_email = ''
+      this.form.author_username = ''
+      this.form.content = ''
+      this.form.title = ''
     },
     /**
      * Скрывает модальное окно создания статьи.
