@@ -31,8 +31,9 @@
         <q-editor
           v-model="v$.content.$model"
           class="full-width"
-          max-height="190px"
+          :max-height="config.editor.maxHeight"
           :style="v$.content.$error ? 'border-color: var(--q-negative)' : ''"
+          :toolbar="config.editor.toolbar"
         />
       </template>
     </q-field>
@@ -78,8 +79,9 @@
 <script setup>
 import { email, minLength, maxLength, required } from 'src/utils/helpers/validators'
 import { storeToRefs } from 'pinia'
-import { useArticlesStore } from 'src/stores/articles'
+import { useArticlesStore } from 'stores/articles'
 import { useVuelidate } from '@vuelidate/core'
+import config from 'src/utils/settings/config'
 import validation from 'src/utils/settings/validation'
 
 const validations = {
@@ -102,6 +104,10 @@ const validations = {
 const articles = useArticlesStore()
 const { form } = storeToRefs(articles)
 const v$ = useVuelidate(validations, form)
+
+defineExpose({
+  v$,
+})
 </script>
 
 <style lang="sass" scoped>

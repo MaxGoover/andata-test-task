@@ -4,6 +4,7 @@ import messages from 'src/i18n'
 
 const i18n = createI18n({
   globalInjection: true,
+  legacy: false,
   locale: 'ru-RU',
   messages,
 })

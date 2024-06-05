@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!--Шаблон блога-->
     <q-layout class="bg-grey-1" view="lhh lpr lFf">
       <BlogHeader class="bg-gradient" />
       <q-page-container class="q-ma-md">
@@ -17,7 +18,7 @@
 </template>
 
 <script setup>
-import { useArticlesStore } from 'src/stores/articles'
+import { useArticlesStore } from 'stores/articles'
 import ArticlesCreateModal from 'components/articles/ArticlesCreateModal.vue'
 import BlogFooter from 'components/blog/BlogFooter.vue'
 import BlogHeader from 'components/blog/BlogHeader.vue'

@@ -9,9 +9,9 @@ const comments = useCommentsStore()
 export const useArticlesStore = defineStore('articles', {
   state: () => ({
     form: {
-      author_email: '',
-      author_username: '',
-      content: '',
+      author_email: 'john_doe@gmail.com',
+      author_username: 'John Doe',
+      content: 'Большооооое содержание статьи',
       title: '',
     },
     isShowedCreateModal: false,
@@ -61,7 +61,6 @@ export const useArticlesStore = defineStore('articles', {
         .then(() => {
           this.clearForm()
           this.hideCreateModal()
-          notify.success(i18n.global.t('message.success.articles.create'))
         })
         .catch(() => {
           notify.error(i18n.global.t('message.error.articles.create'))

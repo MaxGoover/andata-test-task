@@ -6,7 +6,8 @@ const routes = [
     children: [
       {
         path: '',
-        redirect: 'articles',
+        name: 'Home',
+        redirect: '/articles',
       },
     ],
   },
@@ -25,7 +26,7 @@ const routes = [
     ],
   },
 
-  // Ошибка
+  // Ошибки
   {
     path: '/:catchAll(.*)*',
     component: () => import('pages/ErrorNotFound.vue'),

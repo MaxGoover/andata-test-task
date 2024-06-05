@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import { i18n } from 'boot/i18n'
-import { ref } from 'vue'
 import axios from 'axios'
 import notify from 'src/utils/helpers/notify'
 
@@ -8,14 +7,14 @@ export const useCommentsStore = defineStore('comments', {
   state: () => ({
     count: 0,
     form: {
-      article_id: 0,
+      article_id: null,
       author_email: 'maxgoover@gmail.com',
       author_username: 'MaxGoover',
       content:
-        '<p>Каждый раз когда вижу эти спирали к фотографиям, прям слышу как где-то кричит сова.</p>',
-      title: 'Это - заголовок комментария',
+        'Каждый раз когда вижу эти спирали к фотографиям, прям слышу как где-то кричит сова.',
+      title: '',
     },
-    list: ref([]), // список комментариев
+    list: [], // список комментариев
   }),
 
   actions: {
@@ -27,7 +26,6 @@ export const useCommentsStore = defineStore('comments', {
       return axios
         .post('/api/comments/create', this.form)
         .then(() => {
-          this.clearForm()
           notify.success(i18n.global.t('message.success.comments.create'))
         })
         .catch(() => {

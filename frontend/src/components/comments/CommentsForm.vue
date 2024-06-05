@@ -31,7 +31,9 @@
         <q-editor
           v-model="v$.content.$model"
           class="full-width"
+          :label="$t('field.title.comment')"
           :style="v$.content.$error ? 'border-color: var(--q-negative)' : ''"
+          :toolbar="config.editor.toolbar"
         />
       </template>
     </q-field>
@@ -78,8 +80,9 @@
 import { email, minLength, maxLength, required } from 'src/utils/helpers/validators'
 import { reactive } from 'vue'
 import { storeToRefs } from 'pinia'
-import { useCommentsStore } from 'src/stores/comments'
+import { useCommentsStore } from 'stores/comments'
 import { useVuelidate } from '@vuelidate/core'
+import config from 'src/utils/settings/config'
 import validation from 'src/utils/settings/validation'
 
 const validations = reactive({
@@ -102,6 +105,10 @@ const validations = reactive({
 const comments = useCommentsStore()
 const { form } = storeToRefs(comments)
 const v$ = useVuelidate(validations, form)
+
+defineExpose({
+  v$,
+})
 </script>
 
 <style lang="sass" scoped>

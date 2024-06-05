@@ -7,7 +7,7 @@
 
     <!--Форма создания статьи-->
     <template #content>
-      <ArticlesForm />
+      <ArticlesForm ref="articlesFormRef" />
     </template>
 
     <!--Действия-->
@@ -29,22 +29,50 @@
 </template>
 
 <script setup>
-import { useArticlesStore } from 'src/stores/articles'
+import { ref } from 'vue'
+import { scrollToElement } from 'src/utils/helpers/index'
+import { useArticlesStore } from 'stores/articles'
+import { useI18n } from 'vue-i18n'
 import ArticlesForm from 'components/articles/ArticlesForm.vue'
 import ComponentModal from 'components/common/ComponentModal.vue'
 import ComponentTitle from 'components/common/ComponentTitle.vue'
-// import notify from 'src/utils/helpers/notify'
+import notify from 'src/utils/helpers/notify'
 
-defineProps({
+const props = defineProps({
   hideModal: Function,
   isShowed: Boolean,
 })
 
+const { t } = useI18n()
 const articles = useArticlesStore()
+const articlesFormRef = ref(null)
 
-const createArticle = () => {
-  articles.create().then(() => {
-    // this.hideModal()
+/**
+ * Возвращает поле (DOM-элемент) статьи, содержащий ошибку валидации.
+ * @returns {Object}
+ */
+const errorFieldElement = () => {
+  const elements = document.querySelectorAll('.q-field--error')
+  return elements[0]
+}
+
+/**
+ * Сохраняет статью.
+ * @returns {Promise|false}
+ */
+const createArticle = async () => {
+  const isValidArticle = await articlesFormRef.value.v$.$validate()
+
+  if (!isValidArticle) {
+    scrollToElement(errorFieldElement())
+    notify.error(t('message.error.validation'))
+    return false
+  }
+
+  return articles.create().then(() => {
+    articlesFormRef.value.v$.$reset()
+    props.hideModal()
+    notify.success(t('message.success.articles.create'))
   })
 }
 </script>

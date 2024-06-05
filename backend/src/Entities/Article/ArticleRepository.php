@@ -41,7 +41,10 @@ final class ArticleRepository
     {
         $dsn = 'mysql:host=mysql;dbname=andata_blog;charset=utf8';
         $pdo = new PDO($dsn, 'root', 'password');
-        $sql = "SELECT * FROM " . Article::TABLE_NAME;
+        $sql = "SELECT articles.*, COUNT(comments.id) AS count_comments
+            FROM articles
+            LEFT JOIN comments ON articles.id = comments.article_id
+            GROUP BY articles.id";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
 
