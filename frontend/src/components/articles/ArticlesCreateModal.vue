@@ -70,7 +70,6 @@ const createArticle = async () => {
   }
 
   return articles.create().then(() => {
-    articlesFormRef.value.v$.$reset()
     props.hideModal()
     notify.success(t('message.success.articles.create'))
   })

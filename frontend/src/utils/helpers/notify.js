@@ -1,6 +1,7 @@
 import { i18n } from 'boot/i18n'
 import { Notify } from 'quasar'
 
+// Настройки всплывающих уведомлений-тостов
 export default {
   error: (message) => {
     return Notify.create({

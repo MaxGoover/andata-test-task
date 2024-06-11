@@ -42,6 +42,11 @@ export const useCommentsStore = defineStore('comments', {
       this.form.content = ''
       this.form.title = ''
     },
+    /**
+     * Изменяет идентификатор статьи комментария.
+     * @param {Number} id
+     * @returns {void}
+     */
     setFormArticleId(id) {
       this.form.article_id = id
     },

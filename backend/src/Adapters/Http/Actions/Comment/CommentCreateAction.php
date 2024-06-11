@@ -10,7 +10,12 @@ use Psr\Http\Message\RequestInterface;
 
 final class CommentCreateAction
 {
-    public static function handle(RequestInterface $request)
+    public function __construct(
+        private CommentCreateCommand $commentCreateCommand,
+    ) {
+    }
+
+    public function handle(RequestInterface $request): string|false
     {
         /*
          * @var $data['article_id'] int
@@ -27,9 +32,9 @@ final class CommentCreateAction
         $comment->title = $data['title'];
         $comment->content = $data['content'];
         $comment->created_at = date('Y-m-d H:i:s');
-        CommentCreateCommand::handle($comment);
 
         return json_encode([
+            'comment' => $this->commentCreateCommand->handle($comment),
             'message' => 'Comment created successfully',
         ], JSON_THROW_ON_ERROR);
     }

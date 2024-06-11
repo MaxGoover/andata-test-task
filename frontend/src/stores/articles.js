@@ -66,6 +66,11 @@ export const useArticlesStore = defineStore('articles', {
           notify.error(i18n.global.t('message.error.articles.create'))
         })
     },
+    /**
+     * Получает все комментарии к статье.
+     * @param {Number} id
+     * @returns {Promise}
+     */
     async getComments(id) {
       return axios
         .get(`/api/articles/${id}/get-comments`)
@@ -86,6 +91,13 @@ export const useArticlesStore = defineStore('articles', {
       this.form.author_username = ''
       this.form.content = ''
       this.form.title = ''
+    },
+    /**
+     * Очищает выбранную (отображаемую) статью.
+     * @returns {void}
+     */
+    clearSelected() {
+      this.selected = {}
     },
     /**
      * Скрывает модальное окно создания статьи.

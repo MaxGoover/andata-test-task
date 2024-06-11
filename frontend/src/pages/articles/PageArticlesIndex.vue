@@ -26,6 +26,7 @@ const loaders = useLoadersStore()
 loaders.showLoader()
 
 articles.index().finally(() => {
+  articles.clearSelected()
   loaders.hideLoader()
 })
 </script>

@@ -5,12 +5,17 @@ declare(strict_types=1);
 namespace App\UseCases\Comment;
 
 use App\Entities\Comment\Comment;
-use App\Entities\Comment\CommentRepository;
+use App\Entities\Comment\CommentRepositoryInterface;
 
 final class CommentCreateCommand
 {
-    public static function handle(Comment $comment)
+    public function __construct(
+        private CommentRepositoryInterface $comments,
+    ) {
+    }
+
+    public function handle(Comment $comment)
     {
-        return CommentRepository::create($comment);
+        return $this->comments->create($comment);
     }
 }

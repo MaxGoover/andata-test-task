@@ -2,17 +2,20 @@
 
 declare(strict_types=1);
 
-namespace App\Entities\Comment;
+namespace App\Infrastructure\Mysql\Repositories;
 
+use App\Entities\Comment\Comment;
+use App\Entities\Comment\CommentRepositoryInterface;
 use PDO;
 
-final class CommentRepository
+final class CommentRepository implements CommentRepositoryInterface
 {
-    public static function create(Comment $comment)
+    public function __construct(private PDO $pdo)
     {
-        $dsn = 'mysql:host=mysql;dbname=andata_blog;charset=utf8';
-        $pdo = new PDO($dsn, 'root', 'password');
+    }
 
+    public function create(Comment $comment): array
+    {
         $sql = "INSERT " . Comment::TABLE_NAME . "(" .
             Comment::ARTICLE_ID . ', ' .
             Comment::AUTHOR_USERNAME . ', ' .
@@ -29,8 +32,8 @@ final class CommentRepository
             Comment::CREATED_AT .
             ")";
 
-        $stmt = $pdo->prepare($sql);
-        return $stmt->execute([
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
             Comment::ARTICLE_ID => $comment->__get(Comment::ARTICLE_ID),
             Comment::AUTHOR_USERNAME => $comment->__get(Comment::AUTHOR_USERNAME),
             Comment::AUTHOR_EMAIL => $comment->__get(Comment::AUTHOR_EMAIL),
@@ -38,25 +41,23 @@ final class CommentRepository
             Comment::CONTENT => $comment->__get(Comment::CONTENT),
             Comment::CREATED_AT => $comment->__get(Comment::CREATED_AT),
         ]);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public static function getByArticleId(int $articleId): array
+    public function getByArticleId(int $articleId): array
     {
-        $dsn = 'mysql:host=mysql;dbname=andata_blog;charset=utf8';
-        $pdo = new PDO($dsn, 'root', 'password');
         $sql = "SELECT * FROM " . Comment::TABLE_NAME . " WHERE " . Comment::ARTICLE_ID . " = ?";
-        $stmt = $pdo->prepare($sql);
+        $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$articleId]);
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function getCountByArticleId(int $articleId): int
+    public function getCountByArticleId(int $articleId): int
     {
-        $dsn = 'mysql:host=mysql;dbname=andata_blog;charset=utf8';
-        $pdo = new PDO($dsn, 'root', 'password');
         $sql = "SELECT COUNT(*) FROM " . Comment::TABLE_NAME . " WHERE " . Comment::ARTICLE_ID . " = ?";
-        $stmt = $pdo->prepare($sql);
+        $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$articleId]);
 
         return $stmt->fetch(PDO::FETCH_COLUMN);

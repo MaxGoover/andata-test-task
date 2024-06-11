@@ -6,12 +6,17 @@ namespace App\Adapters\Http\Actions\Article;
 
 use App\UseCases\Article\ArticleIndexCommand;
 
-final class ArticleIndexAction
+final readonly class ArticleIndexAction
 {
-    public static function handle()
+    public function __construct(
+        private ArticleIndexCommand $articleIndexCommand,
+    ) {
+    }
+
+    public function handle(): string|false
     {
         return json_encode([
-            'articles' => ArticleIndexCommand::handle(),
+            'articles' => $this->articleIndexCommand->handle(),
             'message'  => 'Articles indexed successfully',
         ], JSON_THROW_ON_ERROR);
     }

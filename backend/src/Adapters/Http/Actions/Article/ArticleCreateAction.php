@@ -8,9 +8,14 @@ use App\Entities\Article\Article;
 use App\UseCases\Article\ArticleCreateCommand;
 use Psr\Http\Message\RequestInterface;
 
-final class ArticleCreateAction
+final readonly class ArticleCreateAction
 {
-    public static function handle(RequestInterface $request)
+    public function __construct(
+        private ArticleCreateCommand $articleCreateCommand,
+    ) {
+    }
+
+    public function handle(RequestInterface $request): string|false
     {
         /*
          * @var $data['author_username'] string
@@ -25,9 +30,9 @@ final class ArticleCreateAction
         $article->title = $data['title'];
         $article->content = $data['content'];
         $article->created_at = date('Y-m-d H:i:s');
-        ArticleCreateCommand::handle($article);
 
         return json_encode([
+            'article' => $this->articleCreateCommand->handle($article),
             'message' => 'Article created successfully',
         ], JSON_THROW_ON_ERROR);
     }
