@@ -6,7 +6,7 @@ namespace App\Entities\Comment;
 
 use Webmozart\Assert\Assert;
 
-final readonly class AuthorUsername
+final readonly class Content
 {
     private string $value;
 

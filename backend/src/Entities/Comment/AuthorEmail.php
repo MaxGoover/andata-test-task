@@ -14,6 +14,7 @@ final readonly class AuthorEmail
     {
         Assert::notEmpty($value);
         Assert::email($value);
+        Assert::maxLength($value, 320);
         $this->value = mb_strtolower($value);
     }
 

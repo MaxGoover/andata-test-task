@@ -14,40 +14,28 @@ final class CommentRepository implements CommentRepositoryInterface
     {
     }
 
-    public function create(Comment $comment): array
+    public function create(Comment $comment): string|false
     {
-        $sql = "INSERT " . Comment::TABLE_NAME . "(" .
-            Comment::ARTICLE_ID . ', ' .
-            Comment::AUTHOR_USERNAME . ', ' .
-            Comment::AUTHOR_EMAIL . ', ' .
-            Comment::TITLE . ', ' .
-            Comment::CONTENT . ', ' .
-            Comment::CREATED_AT .
-            ") VALUES (:" .
-            Comment::ARTICLE_ID . ', :' .
-            Comment::AUTHOR_USERNAME . ', :' .
-            Comment::AUTHOR_EMAIL . ', :' .
-            Comment::TITLE . ', :' .
-            Comment::CONTENT . ', :' .
-            Comment::CREATED_AT .
-            ")";
+        $sql = "INSERT comments
+                    (article_id, author_username, author_email, title, content, created_at)
+                VALUES (?, ?, ?, ?, ?, ?)";
 
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([
-            Comment::ARTICLE_ID => $comment->__get(Comment::ARTICLE_ID),
-            Comment::AUTHOR_USERNAME => $comment->__get(Comment::AUTHOR_USERNAME),
-            Comment::AUTHOR_EMAIL => $comment->__get(Comment::AUTHOR_EMAIL),
-            Comment::TITLE => $comment->__get(Comment::TITLE),
-            Comment::CONTENT => $comment->__get(Comment::CONTENT),
-            Comment::CREATED_AT => $comment->__get(Comment::CREATED_AT),
+            $comment->article_id,
+            $comment->author_username->getValue(),
+            $comment->author_email->getValue(),
+            $comment->title->getValue(),
+            $comment->content->getValue(),
+            $comment->created_at,
         ]);
 
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $this->pdo->lastInsertId();
     }
 
     public function getByArticleId(int $articleId): array
     {
-        $sql = "SELECT * FROM " . Comment::TABLE_NAME . " WHERE " . Comment::ARTICLE_ID . " = ?";
+        $sql = "SELECT * FROM comments WHERE article_id = ?";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$articleId]);
 
@@ -56,7 +44,7 @@ final class CommentRepository implements CommentRepositoryInterface
 
     public function getCountByArticleId(int $articleId): int
     {
-        $sql = "SELECT COUNT(*) FROM " . Comment::TABLE_NAME . " WHERE " . Comment::ARTICLE_ID . " = ?";
+        $sql = "SELECT COUNT(*) FROM comments WHERE article_id = ?";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$articleId]);
 

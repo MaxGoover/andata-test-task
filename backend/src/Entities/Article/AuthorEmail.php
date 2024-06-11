@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace App\Entities\Comment;
+namespace App\Entities\Article;
 
 use Webmozart\Assert\Assert;
 
-final readonly class AuthorUsername
+final readonly class AuthorEmail
 {
     private string $value;
 
     public function __construct(string $value)
     {
         Assert::notEmpty($value);
-        Assert::minLength($value, 3);
-        Assert::maxLength($value, 100);
-        $this->value = $value;
+        Assert::email($value);
+        Assert::maxLength($value, 320);
+        $this->value = mb_strtolower($value);
     }
 
     public function getValue(): string

@@ -72,6 +72,7 @@ const createArticle = async () => {
   return articles.create().then(() => {
     props.hideModal()
     notify.success(t('message.success.articles.create'))
+    articles.index()
   })
 }
 </script>

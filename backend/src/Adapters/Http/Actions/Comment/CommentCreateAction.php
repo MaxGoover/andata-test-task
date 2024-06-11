@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace App\Adapters\Http\Actions\Comment;
 
+use App\Entities\Comment\AuthorEmail;
+use App\Entities\Comment\AuthorUsername;
 use App\Entities\Comment\Comment;
+use App\Entities\Comment\Content;
+use App\Entities\Comment\Title;
 use App\UseCases\Comment\CommentCreateCommand;
 use Psr\Http\Message\RequestInterface;
 
@@ -25,13 +29,14 @@ final class CommentCreateAction
          * @var $data['content'] string
          */
         $data = json_decode($request->getBody()->getContents(), true);
-        $comment = new Comment();
-        $comment->article_id = intval($data['article_id']);
-        $comment->author_username = $data['author_username'];
-        $comment->author_email = $data['author_email'];
-        $comment->title = $data['title'];
-        $comment->content = $data['content'];
-        $comment->created_at = date('Y-m-d H:i:s');
+        $comment = new Comment(
+            intval($data['article_id']),
+            new AuthorUsername($data['author_username']),
+            new AuthorEmail($data['author_email']),
+            new Title($data['title']),
+            new Content($data['content']),
+            date('Y-m-d H:i:s')
+        );
 
         return json_encode([
             'comment' => $this->commentCreateCommand->handle($comment),

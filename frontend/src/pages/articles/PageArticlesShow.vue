@@ -3,56 +3,58 @@
     <!--Лоадер-->
     <q-inner-loading v-if="loaders.isShowedLoader" showing :label="$t('loader.pleaseWait')" />
 
-    <!--Статья-->
-    <q-card v-if="!isEmpty(articles.selected)" class="q-mb-sm" bordered flat>
-      <q-card-section>
-        <div class="text-weight-bold q-mb-xs font-lato">
-          <span class="q-mr-lg">{{ articles.selected.author_username }}</span>
-          <span class="text-grey">{{ articles.selected.created_at }}</span>
-        </div>
-        <div class="text-h6 text-weight-bold q-mb-lg font-lato">
-          <span>{{ articles.selected.title }}</span>
-        </div>
-        <div v-html="articles.selected.content" />
-      </q-card-section>
-    </q-card>
-
-    <!--Добавить комментарий-->
-    <q-card class="q-mb-sm" bordered flat>
-      <q-card-section>
-        <div class="text-weight-bold q-mb-xs">
-          <span class="q-mr-lg">{{ $t('title.comments') }}</span>
-          <span class="text-blue">{{ comments.count }}</span>
-        </div>
-      </q-card-section>
-
-      <q-card-section>
-        <ComponentTitle :text="$t('title.add.comment')" />
-      </q-card-section>
-
-      <q-card-section>
-        <CommentsForm ref="commentsFormRef" />
-      </q-card-section>
-
-      <q-card-section class="q-pt-none">
-        <div class="row justify-end q-col-gutter-x-lg actions">
-          <div class="col-2">
-            <q-btn class="full-width" color="indigo-5" no-caps unelevated @click="createComment">
-              {{ $t('action.save') }}
-            </q-btn>
+    <template v-else>
+      <!--Статья-->
+      <q-card v-if="!isEmpty(articles.selected)" class="q-mb-sm" bordered flat>
+        <q-card-section>
+          <div class="text-weight-bold q-mb-xs font-lato">
+            <span class="q-mr-lg">{{ articles.selected.author_username }}</span>
+            <span class="text-grey">{{ articles.selected.created_at }}</span>
           </div>
-        </div>
-      </q-card-section>
-    </q-card>
+          <div class="text-h6 text-weight-bold q-mb-lg font-lato">
+            <span>{{ articles.selected.title }}</span>
+          </div>
+          <div v-html="articles.selected.content" />
+        </q-card-section>
+      </q-card>
 
-    <!--Комментарии-->
-    <template v-if="!isEmpty(comments.list)">
-      <CommentsItem
-        v-for="comment in comments.list"
-        :key="comment.id"
-        class="js-comment"
-        :comment="comment"
-      />
+      <!--Добавить комментарий-->
+      <q-card class="q-mb-sm" bordered flat>
+        <q-card-section>
+          <div class="text-weight-bold q-mb-xs">
+            <span class="q-mr-lg">{{ $t('title.comments') }}</span>
+            <span class="text-blue">{{ comments.count }}</span>
+          </div>
+        </q-card-section>
+
+        <q-card-section>
+          <ComponentTitle :text="$t('title.add.comment')" />
+        </q-card-section>
+
+        <q-card-section>
+          <CommentsForm ref="commentsFormRef" />
+        </q-card-section>
+
+        <q-card-section class="q-pt-none">
+          <div class="row justify-end q-col-gutter-x-lg actions">
+            <div class="col-2">
+              <q-btn class="full-width" color="indigo-5" no-caps unelevated @click="createComment">
+                {{ $t('action.save') }}
+              </q-btn>
+            </div>
+          </div>
+        </q-card-section>
+      </q-card>
+
+      <!--Комментарии-->
+      <template v-if="!isEmpty(comments.list)">
+        <CommentsItem
+          v-for="comment in comments.list"
+          :key="comment.id"
+          class="js-comment"
+          :comment="comment"
+        />
+      </template>
     </template>
   </div>
 </template>

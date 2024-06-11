@@ -7,12 +7,11 @@ use App\Adapters\Http\Actions\Article\ArticleGetCommentsAction;
 use App\Adapters\Http\Actions\Article\ArticleIndexAction;
 use App\Adapters\Http\Actions\Article\ArticleShowAction;
 use App\Adapters\Http\Actions\Comment\CommentCreateAction;
+use Dotenv\Dotenv;
 use GuzzleHttp\Psr7\CachingStream;
 use GuzzleHttp\Psr7\LazyOpenStream;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\ServerRequest;
-
-use Dotenv\Dotenv;
 use Psr\Container\ContainerInterface;
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -22,7 +21,7 @@ $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
 /** @var ContainerInterface $container */
-$container = require __DIR__ . '/config/container.php';
+$container = require_once __DIR__ . '/config/container.php';
 
 /** @var Request $request */
 $request = new Request(

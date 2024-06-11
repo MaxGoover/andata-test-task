@@ -21,37 +21,6 @@ export const useArticlesStore = defineStore('articles', {
 
   actions: {
     /**
-     * Получает список статей.
-     * @returns {Promise}
-     */
-    async index() {
-      return axios
-        .get('/api/articles')
-        .then((response) => {
-          this.setList(response.data.articles)
-        })
-        .catch(() => {
-          notify.error(i18n.global.t('message.error.articles.index'))
-        })
-    },
-    /**
-     * Получает статью по её идентификатору.
-     * @param {Number} id
-     * @returns {Promise}
-     */
-    async show(id) {
-      return axios
-        .get(`/api/articles/${id}`)
-        .then((response) => {
-          this.setSelected(response.data.article)
-          comments.setCount(response.data.countComments)
-          comments.setList(response.data.comments)
-        })
-        .catch(() => {
-          notify.error(i18n.global.t('message.error.articles.index'))
-        })
-    },
-    /**
      * Сохраняет статью.
      * @returns {Promise}
      */
@@ -80,6 +49,37 @@ export const useArticlesStore = defineStore('articles', {
         })
         .catch(() => {
           notify.error(i18n.global.t('message.error.articles.getComments'))
+        })
+    },
+    /**
+     * Получает список статей.
+     * @returns {Promise}
+     */
+    async index() {
+      return axios
+        .get('/api/articles')
+        .then((response) => {
+          this.setList(response.data.articles)
+        })
+        .catch(() => {
+          notify.error(i18n.global.t('message.error.articles.index'))
+        })
+    },
+    /**
+     * Получает статью по её идентификатору.
+     * @param {Number} id
+     * @returns {Promise}
+     */
+    async show(id) {
+      return axios
+        .get(`/api/articles/${id}`)
+        .then((response) => {
+          this.setSelected(response.data.article)
+          comments.setCount(response.data.countComments)
+          comments.setList(response.data.comments)
+        })
+        .catch(() => {
+          notify.error(i18n.global.t('message.error.articles.index'))
         })
     },
     /**

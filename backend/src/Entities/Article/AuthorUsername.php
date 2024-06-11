@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Entities\Comment;
+namespace App\Entities\Article;
 
 use Webmozart\Assert\Assert;
 

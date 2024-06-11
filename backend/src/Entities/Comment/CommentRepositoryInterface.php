@@ -6,7 +6,7 @@ namespace App\Entities\Comment;
 
 interface CommentRepositoryInterface
 {
-    public function create(Comment $comment): array;
+    public function create(Comment $comment): string|false;
 
     public function getByArticleId(int $articleId): array;
 

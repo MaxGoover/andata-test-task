@@ -6,9 +6,9 @@ namespace App\Entities\Article;
 
 interface ArticleRepositoryInterface
 {
-    public function create(Article $article): array;
-
-    public function index(): array;
+    public function create(Article $article): string|false;
 
     public function getById(int $id): array;
+
+    public function index(): array;
 }
