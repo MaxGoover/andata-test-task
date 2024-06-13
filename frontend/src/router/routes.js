@@ -17,7 +17,10 @@ const routes = [
     path: '/articles',
     component: () => import('layouts/LayoutBlog.vue'),
     children: [
-      { path: '', component: () => import('pages/articles/PageArticlesIndex.vue') },
+      {
+        path: '',
+        component: () => import('pages/articles/PageArticlesIndex.vue'),
+      },
       {
         path: ':id',
         name: 'ArticlesShow',

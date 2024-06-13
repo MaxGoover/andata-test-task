@@ -9,8 +9,10 @@ use App\Entities\Article\AuthorEmail;
 use App\Entities\Article\AuthorUsername;
 use App\Entities\Article\Content;
 use App\Entities\Article\Title;
+use App\Infrastructure\Response\JsonResponse;
 use App\UseCases\Article\ArticleCreateCommand;
 use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 final readonly class ArticleCreateAction
 {
@@ -19,7 +21,7 @@ final readonly class ArticleCreateAction
     ) {
     }
 
-    public function handle(RequestInterface $request): string|false
+    public function handle(RequestInterface $request): ResponseInterface
     {
         /*
          * @var $data['author_username'] string
@@ -36,9 +38,9 @@ final readonly class ArticleCreateAction
             date('Y-m-d H:i:s'),
         );
 
-        return json_encode([
+        return new JsonResponse([
             'article' => $this->articleCreateCommand->handle($article),
             'message' => 'Article created successfully',
-        ], JSON_THROW_ON_ERROR);
+        ]);
     }
 }

@@ -16,14 +16,14 @@
 
       <q-space />
 
-      <span>Андата &copy; {{ currentYear }}</span>
+      <span>{{ $t('company.name') }} &copy; {{ currentYear }}</span>
     </q-toolbar>
   </q-footer>
 </template>
 
 <script setup>
-import config from 'src/utils/settings/config'
 import ComponentIcon from 'components/common/ComponentIcon.vue'
+import config from 'src/utils/settings/config'
 import IconTelegram from 'assets/icons/IconTelegram.vue'
 import IconWhatsapp from 'assets/icons/IconWhatsapp.vue'
 

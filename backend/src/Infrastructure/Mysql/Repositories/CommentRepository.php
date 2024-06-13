@@ -14,6 +14,9 @@ final class CommentRepository implements CommentRepositoryInterface
     {
     }
 
+    /**
+     * Создает комментарий к статье.
+     */
     public function create(Comment $comment): string|false
     {
         $sql = "INSERT comments
@@ -33,6 +36,9 @@ final class CommentRepository implements CommentRepositoryInterface
         return $this->pdo->lastInsertId();
     }
 
+    /**
+     * Получает список комментариев по id статьи.
+     */
     public function getByArticleId(int $articleId): array
     {
         $sql = "SELECT * FROM comments WHERE article_id = ?";
@@ -41,6 +47,7 @@ final class CommentRepository implements CommentRepositoryInterface
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
 
     public function getCountByArticleId(int $articleId): int
     {

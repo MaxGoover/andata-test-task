@@ -14,6 +14,9 @@ final class ArticleRepository implements ArticleRepositoryInterface
     {
     }
 
+    /**
+     * Создает статью.
+     */
     public function create(Article $article): string|false
     {
         $sql = "INSERT articles
@@ -32,6 +35,9 @@ final class ArticleRepository implements ArticleRepositoryInterface
         return $this->pdo->lastInsertId();
     }
 
+    /**
+     * Получает статью по её id.
+     */
     public function getById(int $id): array
     {
         $sql = "SELECT * FROM articles WHERE id = ?";
@@ -41,6 +47,9 @@ final class ArticleRepository implements ArticleRepositoryInterface
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Получает список статей.
+     */
     public function index(): array
     {
         $sql = "SELECT articles.*, COUNT(comments.id) AS count_comments

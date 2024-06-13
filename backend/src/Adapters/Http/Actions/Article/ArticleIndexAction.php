@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Adapters\Http\Actions\Article;
 
+use App\Infrastructure\Response\JsonResponse;
 use App\UseCases\Article\ArticleIndexCommand;
+use Psr\Http\Message\ResponseInterface;
 
 final readonly class ArticleIndexAction
 {
@@ -13,11 +15,11 @@ final readonly class ArticleIndexAction
     ) {
     }
 
-    public function handle(): string|false
+    public function handle(): ResponseInterface
     {
-        return json_encode([
+        return new JsonResponse([
             'articles' => $this->articleIndexCommand->handle(),
             'message'  => 'Articles indexed successfully',
-        ], JSON_THROW_ON_ERROR);
+        ]);
     }
 }

@@ -1,7 +1,6 @@
+// Общие вспомогательные функции приложения
 import { scroll } from 'quasar'
 import config from 'src/utils/settings/config'
-
-// Общие вспомогательные функции приложения
 
 /**
  * Скроллит экран до указанного DOM-элемента.

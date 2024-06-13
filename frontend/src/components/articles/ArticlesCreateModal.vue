@@ -39,8 +39,14 @@ import ComponentTitle from 'components/common/ComponentTitle.vue'
 import notify from 'src/utils/helpers/notify'
 
 const props = defineProps({
-  hideModal: Function,
-  isShowed: Boolean,
+  hideModal: {
+    type: Function,
+    required: true,
+  },
+  isShowed: {
+    type: Boolean,
+    required: true,
+  },
 })
 
 const { t } = useI18n()

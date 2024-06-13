@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { route } from 'quasar/wrappers'
-import routes from './routes'
+import routes from 'src/router/routes'
 
 export default route(function (/* { store, ssrContext } */) {
   const Router = createRouter({

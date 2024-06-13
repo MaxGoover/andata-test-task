@@ -9,10 +9,11 @@ const comments = useCommentsStore()
 export const useArticlesStore = defineStore('articles', {
   state: () => ({
     form: {
-      author_email: 'john_doe@gmail.com',
-      author_username: 'John Doe',
-      content: 'Большооооое содержание статьи',
-      title: '',
+      author_email: 'maxgoover@gmail.com',
+      author_username: 'MaxGoover',
+      content:
+        '<p>Пользователь X под ником PatRyk <a href="https://twitter.com/Patrosi73/status/1789756239984890165" rel="noopener noreferrer nofollow">установил </a>Windows 11 на консоль Nintendo Switch. По его словам, у него получился «самый медленный компьютер в мире», что недалеко от правды: только загрузка рабочего стола занимает более двух минут.</p><p>Как <a href="https://www.windowslatest.com/2024/05/13/watch-dev-runs-windows-11-arm-on-nintendo-switch-using-qemu-linux-emulation/" rel="noopener noreferrer nofollow">уточняет </a>PatRyk, он использовал версию Windows 11 ARM с включённым KVM. Для начала он установил на SD-карту консоли Fedora Linux через Switchroot. По его словам, использование Switchroot-дистрибутива Fedora обязательно, потому что это единственная версия с поддержкой KVM.</p><p>После настройки Fedora он использовал <a href="https://gist.github.com/Vogtinator/293c4f90c5e92838f7e72610725905fd" rel="noopener noreferrer nofollow">скрипт </a>для запуска Windows 11 в эмуляторе QEMU, который ему пришлось модифицировать, чтобы он правильно работал со Switch. PatRyk выделил виртуальной машине 4 ядра и 3 ГБ ОЗУ, что близко к максимуму (у Switch всего 4 ГБ ОЗУ).</p>',
+      title: 'Энтузиаст установил Windows 11 на Nintendo Switch',
     },
     isShowedCreateModal: false,
     list: [], // список статей

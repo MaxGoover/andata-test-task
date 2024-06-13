@@ -14,7 +14,7 @@ final readonly class Title
     {
         Assert::notEmpty($value);
         Assert::minLength($value, 3);
-        Assert::maxLength($value, 100);
+        Assert::maxLength($value, 200);
         $this->value = $value;
     }
 

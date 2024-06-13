@@ -1,3 +1,4 @@
+// Обертка над валидатором для более тонкой настройки валидации
 import {
   email as vEmail,
   helpers,
@@ -6,8 +7,6 @@ import {
   required as vRequired,
 } from '@vuelidate/validators'
 import { i18n } from 'boot/i18n'
-
-// Обертка над валидатором для более тонкой настройки валидации
 
 export const email = helpers.withMessage(i18n.global.t('validators.email'), vEmail)
 

@@ -9,8 +9,10 @@ use App\Entities\Comment\AuthorUsername;
 use App\Entities\Comment\Comment;
 use App\Entities\Comment\Content;
 use App\Entities\Comment\Title;
+use App\Infrastructure\Response\JsonResponse;
 use App\UseCases\Comment\CommentCreateCommand;
 use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 final class CommentCreateAction
 {
@@ -19,7 +21,7 @@ final class CommentCreateAction
     ) {
     }
 
-    public function handle(RequestInterface $request): string|false
+    public function handle(RequestInterface $request): ResponseInterface
     {
         /*
          * @var $data['article_id'] int
@@ -38,9 +40,9 @@ final class CommentCreateAction
             date('Y-m-d H:i:s')
         );
 
-        return json_encode([
+        return new JsonResponse([
             'comment' => $this->commentCreateCommand->handle($comment),
             'message' => 'Comment created successfully',
-        ], JSON_THROW_ON_ERROR);
+        ]);
     }
 }

@@ -14,7 +14,7 @@ final readonly class Content
     {
         Assert::notEmpty($value);
         Assert::minLength($value, 3);
-        Assert::maxLength($value, 100);
+        Assert::maxLength($value, 10000);
         $this->value = $value;
     }
 
