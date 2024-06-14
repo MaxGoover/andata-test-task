@@ -5,12 +5,17 @@ declare(strict_types=1);
 namespace App\UseCases\Article;
 
 use App\Entities\Article\Article;
-use App\Entities\Article\ArticleRepository;
+use App\Entities\Article\ArticleRepositoryInterface;
 
-final class ArticleCreateCommand
+final readonly class ArticleCreateCommand
 {
-    public static function handle(Article $article)
+    public function __construct(
+        private ArticleRepositoryInterface $articles,
+    ) {
+    }
+
+    public function handle(Article $article)
     {
-        return ArticleRepository::create($article);
+        return $this->articles->create($article);
     }
 }

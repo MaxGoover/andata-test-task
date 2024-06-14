@@ -14,6 +14,9 @@ export default {
   field: {
     content: 'Содержание',
     email: 'Электронная почта',
+    text: {
+      comment: 'Текст комментария',
+    },
     title: {
       article: 'Заголовок статьи',
       comment: 'Заголовок комментария',
@@ -34,6 +37,7 @@ export default {
       comments: {
         create: 'Не удалось сохранить комментарий',
       },
+      validation: 'Ошибка валидации',
     },
     success: {
       articles: {
@@ -46,6 +50,12 @@ export default {
   },
   project: {
     name: 'Блог - потомок Хабра',
+  },
+  table: {
+    noData: {
+      articles: 'Статьи не найдены',
+      comments: 'Комментариев нет',
+    },
   },
   title: {
     add: {

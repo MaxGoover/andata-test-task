@@ -21,6 +21,37 @@ export const useArticlesStore = defineStore('articles', {
 
   actions: {
     /**
+     * Сохраняет статью.
+     * @returns {Promise}
+     */
+    async create() {
+      return axios
+        .post('/api/articles/create', this.form)
+        .then(() => {
+          this.clearForm()
+          this.hideCreateModal()
+        })
+        .catch(() => {
+          notify.error(i18n.global.t('message.error.articles.create'))
+        })
+    },
+    /**
+     * Получает все комментарии к статье.
+     * @param {Number} id
+     * @returns {Promise}
+     */
+    async getComments(id) {
+      return axios
+        .get(`/api/articles/${id}/get-comments`)
+        .then((response) => {
+          comments.setCount(response.data.countComments)
+          comments.setList(response.data.comments)
+        })
+        .catch(() => {
+          notify.error(i18n.global.t('message.error.articles.getComments'))
+        })
+    },
+    /**
      * Получает список статей.
      * @returns {Promise}
      */
@@ -52,33 +83,6 @@ export const useArticlesStore = defineStore('articles', {
         })
     },
     /**
-     * Сохраняет статью.
-     * @returns {Promise}
-     */
-    async create() {
-      return axios
-        .post('/api/articles/create', this.form)
-        .then(() => {
-          this.clearForm()
-          this.hideCreateModal()
-          notify.success(i18n.global.t('message.success.articles.create'))
-        })
-        .catch(() => {
-          notify.error(i18n.global.t('message.error.articles.create'))
-        })
-    },
-    async getComments(id) {
-      return axios
-        .get(`/api/articles/${id}/get-comments`)
-        .then((response) => {
-          comments.setCount(response.data.countComments)
-          comments.setList(response.data.comments)
-        })
-        .catch(() => {
-          notify.error(i18n.global.t('message.error.articles.getComments'))
-        })
-    },
-    /**
      * Очищает форму статьи.
      * @returns {void}
      */
@@ -87,6 +91,13 @@ export const useArticlesStore = defineStore('articles', {
       this.form.author_username = ''
       this.form.content = ''
       this.form.title = ''
+    },
+    /**
+     * Очищает выбранную (отображаемую) статью.
+     * @returns {void}
+     */
+    clearSelected() {
+      this.selected = {}
     },
     /**
      * Скрывает модальное окно создания статьи.

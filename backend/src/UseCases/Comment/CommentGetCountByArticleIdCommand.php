@@ -4,12 +4,17 @@ declare(strict_types=1);
 
 namespace App\UseCases\Comment;
 
-use App\Entities\Comment\CommentRepository;
+use App\Entities\Comment\CommentRepositoryInterface;
 
-final class CommentGetCountByArticleIdCommand
+final readonly class CommentGetCountByArticleIdCommand
 {
-    public static function handle(int $id)
+    public function __construct(
+        private CommentRepositoryInterface $comments,
+    ) {
+    }
+
+    public function handle(int $id)
     {
-        return CommentRepository::getCountByArticleId($id);
+        return $this->comments->getCountByArticleId($id);
     }
 }

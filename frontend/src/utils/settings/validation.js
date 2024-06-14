@@ -6,18 +6,18 @@ export default {
       maxLength: 10000,
     },
     title: {
-      minLength: 5,
+      minLength: 3,
       maxLength: 200,
     },
   },
   comment: {
     content: {
-      minLength: 3,
+      minLength: 10,
       maxLength: 10000,
     },
     title: {
       minLength: 3,
-      maxLength: 100,
+      maxLength: 200,
     },
   },
   email: {

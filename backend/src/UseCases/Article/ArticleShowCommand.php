@@ -4,12 +4,17 @@ declare(strict_types=1);
 
 namespace App\UseCases\Article;
 
-use App\Entities\Article\ArticleRepository;
+use App\Entities\Article\ArticleRepositoryInterface;
 
-final class ArticleShowCommand
+final readonly class ArticleShowCommand
 {
-    public static function handle(int $id)
+    public function __construct(
+        private ArticleRepositoryInterface $articles,
+    ) {
+    }
+
+    public function handle(int $id)
     {
-        return ArticleRepository::getById($id);
+        return $this->articles->getById($id);
     }
 }

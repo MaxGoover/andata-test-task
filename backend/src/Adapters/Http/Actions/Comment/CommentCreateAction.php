@@ -4,13 +4,25 @@ declare(strict_types=1);
 
 namespace App\Adapters\Http\Actions\Comment;
 
+use App\Entities\Comment\AuthorEmail;
+use App\Entities\Comment\AuthorUsername;
 use App\Entities\Comment\Comment;
+use App\Entities\Comment\Content;
+use App\Entities\Comment\Title;
+use App\Infrastructure\Response\JsonResponse;
 use App\UseCases\Comment\CommentCreateCommand;
+use Exception;
 use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 final class CommentCreateAction
 {
-    public static function handle(RequestInterface $request)
+    public function __construct(
+        private CommentCreateCommand $commentCreateCommand,
+    ) {
+    }
+
+    public function handle(RequestInterface $request): ResponseInterface
     {
         /*
          * @var $data['article_id'] int
@@ -20,17 +32,24 @@ final class CommentCreateAction
          * @var $data['content'] string
          */
         $data = json_decode($request->getBody()->getContents(), true);
-        $comment = new Comment();
-        $comment->article_id = intval($data['article_id']);
-        $comment->author_username = $data['author_username'];
-        $comment->author_email = $data['author_email'];
-        $comment->title = $data['title'];
-        $comment->content = $data['content'];
-        $comment->created_at = date('Y-m-d H:i:s');
-        CommentCreateCommand::handle($comment);
+        $comment = new Comment(
+            intval($data['article_id']),
+            new AuthorUsername($data['author_username']),
+            new AuthorEmail($data['author_email']),
+            new Title($data['title']),
+            new Content($data['content']),
+            date('Y-m-d H:i:s')
+        );
 
-        return json_encode([
-            'message' => 'Comment created successfully',
-        ], JSON_THROW_ON_ERROR);
+        try {
+            return new JsonResponse([
+                'comment' => $this->commentCreateCommand->handle($comment),
+                'message' => 'Comment created successfully',
+            ]);
+        } catch (Exception $e) {
+            return new JsonResponse([
+                'message'  => $e->getMessage(),
+            ], 400);
+        }
     }
 }

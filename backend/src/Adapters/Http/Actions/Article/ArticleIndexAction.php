@@ -4,15 +4,29 @@ declare(strict_types=1);
 
 namespace App\Adapters\Http\Actions\Article;
 
+use App\Infrastructure\Response\JsonResponse;
 use App\UseCases\Article\ArticleIndexCommand;
+use Exception;
+use Psr\Http\Message\ResponseInterface;
 
-final class ArticleIndexAction
+final readonly class ArticleIndexAction
 {
-    public static function handle()
+    public function __construct(
+        private ArticleIndexCommand $articleIndexCommand,
+    ) {
+    }
+
+    public function handle(): ResponseInterface
     {
-        return json_encode([
-            'articles' => ArticleIndexCommand::handle(),
-            'message'  => 'Articles indexed successfully',
-        ], JSON_THROW_ON_ERROR);
+        try {
+            return new JsonResponse([
+                'articles' => $this->articleIndexCommand->handle(),
+                'message'  => 'Articles indexed successfully',
+            ]);
+        } catch (Exception $e) {
+            return new JsonResponse([
+                'message'  => $e->getMessage(),
+            ], 400);
+        }
     }
 }

@@ -1,10 +1,10 @@
+// Обертка над валидатором для более тонкой настройки валидации
 import {
   email as vEmail,
   helpers,
   maxLength as vMaxLength,
   minLength as vMinLength,
   required as vRequired,
-  requiredIf as vRequiredIf,
 } from '@vuelidate/validators'
 import { i18n } from 'boot/i18n'
 
@@ -23,6 +23,3 @@ export const minLength = (min) =>
   )
 
 export const required = helpers.withMessage(i18n.global.t('validators.required'), vRequired)
-
-export const requiredIf = (callback) =>
-  helpers.withMessage(i18n.global.t('validators.required'), vRequiredIf(callback))

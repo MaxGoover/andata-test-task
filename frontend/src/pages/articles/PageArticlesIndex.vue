@@ -5,38 +5,21 @@
 
     <template v-else>
       <!--Список статей-->
-      <q-card v-for="article in articles.list" :key="article.id" class="q-mb-sm" bordered flat>
-        <q-card-section>
-          <div class="q-mb-md">
-            <span class="text-blue text-weight-bold">
-              {{ $t('title.article').toLocaleUpperCase() }}
-            </span>
-          </div>
-          <div class="text-weight-bold q-mb-xs font-lato">
-            <span class="q-mr-lg">{{ article.author_username }}</span>
-            <span class="text-grey">{{ article.created_at }}</span>
-          </div>
-          <router-link
-            :to="{ name: 'ArticlesShow', params: { id: article.id } }"
-            class="text-h6 text-weight-bold font-lato text-decoration-none"
-          >
-            <span>{{ article.title }}</span>
-          </router-link>
-        </q-card-section>
-
-        <q-card-actions class="text-grey q-ma-sm">
-          <span class="q-mr-sm">{{ $t('title.comments') }}:</span>
-          <!-- <span>{{ article.countComments }}</span> -->
-          <span>0</span>
-        </q-card-actions>
-      </q-card>
+      <template v-if="!isEmpty(articles.list)">
+        <ArticlesItem v-for="article in articles.list" :key="article.id" :article="article" />
+      </template>
+      <div v-else class="q-ma-sm">
+        <span>{{ $t('table.noData.articles') }}</span>
+      </div>
     </template>
   </div>
 </template>
 
 <script setup>
-import { useArticlesStore } from 'src/stores/articles'
-import { useLoadersStore } from 'src/stores/loaders'
+import { isEmpty } from 'lodash'
+import { useArticlesStore } from 'stores/articles'
+import { useLoadersStore } from 'stores/loaders'
+import ArticlesItem from 'components/articles/ArticlesItem.vue'
 import LayoutBlog from 'layouts/LayoutBlog.vue'
 
 defineOptions({
@@ -49,6 +32,7 @@ const loaders = useLoadersStore()
 loaders.showLoader()
 
 articles.index().finally(() => {
+  articles.clearSelected()
   loaders.hideLoader()
 })
 </script>

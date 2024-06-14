@@ -4,12 +4,17 @@ declare(strict_types=1);
 
 namespace App\UseCases\Article;
 
-use App\Entities\Article\ArticleRepository;
+use App\Entities\Article\ArticleRepositoryInterface;
 
-final class ArticleIndexCommand
+final readonly class ArticleIndexCommand
 {
-    public static function handle()
+    public function __construct(
+        private ArticleRepositoryInterface $articles,
+    ) {
+    }
+
+    public function handle()
     {
-        return ArticleRepository::index();
+        return $this->articles->index();
     }
 }
