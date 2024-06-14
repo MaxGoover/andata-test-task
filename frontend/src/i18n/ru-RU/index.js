@@ -51,6 +51,12 @@ export default {
   project: {
     name: 'Блог - потомок Хабра',
   },
+  table: {
+    noData: {
+      articles: 'Статьи не найдены',
+      comments: 'Комментариев нет',
+    },
+  },
   title: {
     add: {
       article: 'Добавить статью',

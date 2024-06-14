@@ -11,6 +11,7 @@ use App\Entities\Article\Content;
 use App\Entities\Article\Title;
 use App\Infrastructure\Response\JsonResponse;
 use App\UseCases\Article\ArticleCreateCommand;
+use Exception;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -38,9 +39,15 @@ final readonly class ArticleCreateAction
             date('Y-m-d H:i:s'),
         );
 
-        return new JsonResponse([
-            'article' => $this->articleCreateCommand->handle($article),
-            'message' => 'Article created successfully',
-        ]);
+        try {
+            return new JsonResponse([
+                'article' => $this->articleCreateCommand->handle($article),
+                'message' => 'Article created successfully',
+            ]);
+        } catch (Exception $e) {
+            return new JsonResponse([
+                'message'  => $e->getMessage(),
+            ], 400);
+        }
     }
 }

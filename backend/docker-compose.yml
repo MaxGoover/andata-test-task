@@ -1,11 +1,10 @@
 services:
-  #PHP Service
   backend:
     build:
       context: .
       dockerfile: Dockerfile
     image: cloudsigma.com/php
-    container_name: andata-backend
+    container_name: ${APP_NAME}-backend
     restart: unless-stopped
     tty: true
     environment:
@@ -14,13 +13,12 @@ services:
     working_dir: /var/www/api/
     volumes:
       - ./:/var/www/api/
-      # - ./php/laravel.ini:/usr/local/etc/php/conf.d/laravel.ini
     networks:
       - app-network
 
   frontend:
     stdin_open: true
-    container_name: andata-frontend
+    container_name: ${APP_NAME}-frontend
     build:
       context: ../frontend
       dockerfile: Dockerfile
@@ -30,7 +28,6 @@ services:
     networks:
       - app-network
 
-  #Nginx Service
   webserver:
     depends_on:
       - backend
@@ -38,7 +35,7 @@ services:
     build:
       context: ./nginx
       dockerfile: Dockerfile
-    container_name: webserver
+    container_name: ${APP_NAME}-webserver
     restart: unless-stopped
     tty: true
     volumes:
@@ -50,6 +47,7 @@ services:
 
   mysql:
     image: mysql:${MYSQL_VERSION}
+    container_name: ${APP_NAME}-mysql
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
@@ -60,7 +58,6 @@ services:
     networks:
       - app-network
 
-#Docker Networks
 networks:
   app-network:
     driver: bridge

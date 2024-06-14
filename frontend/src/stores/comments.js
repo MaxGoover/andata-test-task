@@ -8,10 +8,9 @@ export const useCommentsStore = defineStore('comments', {
     count: 0,
     form: {
       article_id: null,
-      author_email: 'maxgoover@gmail.com',
-      author_username: 'MaxGoover',
-      content:
-        'Каждый раз когда вижу эти спирали к фотографиям, прям слышу как где-то кричит сова.',
+      author_email: '',
+      author_username: '',
+      content: '',
       title: '',
     },
     list: [], // список комментариев

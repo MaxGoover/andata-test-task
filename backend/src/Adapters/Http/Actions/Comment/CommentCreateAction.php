@@ -11,6 +11,7 @@ use App\Entities\Comment\Content;
 use App\Entities\Comment\Title;
 use App\Infrastructure\Response\JsonResponse;
 use App\UseCases\Comment\CommentCreateCommand;
+use Exception;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -40,9 +41,15 @@ final class CommentCreateAction
             date('Y-m-d H:i:s')
         );
 
-        return new JsonResponse([
-            'comment' => $this->commentCreateCommand->handle($comment),
-            'message' => 'Comment created successfully',
-        ]);
+        try {
+            return new JsonResponse([
+                'comment' => $this->commentCreateCommand->handle($comment),
+                'message' => 'Comment created successfully',
+            ]);
+        } catch (Exception $e) {
+            return new JsonResponse([
+                'message'  => $e->getMessage(),
+            ], 400);
+        }
     }
 }

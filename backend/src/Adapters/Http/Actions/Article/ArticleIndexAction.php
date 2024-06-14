@@ -6,6 +6,7 @@ namespace App\Adapters\Http\Actions\Article;
 
 use App\Infrastructure\Response\JsonResponse;
 use App\UseCases\Article\ArticleIndexCommand;
+use Exception;
 use Psr\Http\Message\ResponseInterface;
 
 final readonly class ArticleIndexAction
@@ -17,9 +18,15 @@ final readonly class ArticleIndexAction
 
     public function handle(): ResponseInterface
     {
-        return new JsonResponse([
-            'articles' => $this->articleIndexCommand->handle(),
-            'message'  => 'Articles indexed successfully',
-        ]);
+        try {
+            return new JsonResponse([
+                'articles' => $this->articleIndexCommand->handle(),
+                'message'  => 'Articles indexed successfully',
+            ]);
+        } catch (Exception $e) {
+            return new JsonResponse([
+                'message'  => $e->getMessage(),
+            ], 400);
+        }
     }
 }

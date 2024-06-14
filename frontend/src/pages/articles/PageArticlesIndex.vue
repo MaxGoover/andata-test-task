@@ -5,12 +5,18 @@
 
     <template v-else>
       <!--Список статей-->
-      <ArticlesItem v-for="article in articles.list" :key="article.id" :article="article" />
+      <template v-if="!isEmpty(articles.list)">
+        <ArticlesItem v-for="article in articles.list" :key="article.id" :article="article" />
+      </template>
+      <div v-else class="q-ma-sm">
+        <span>{{ $t('table.noData.articles') }}</span>
+      </div>
     </template>
   </div>
 </template>
 
 <script setup>
+import { isEmpty } from 'lodash'
 import { useArticlesStore } from 'stores/articles'
 import { useLoadersStore } from 'stores/loaders'
 import ArticlesItem from 'components/articles/ArticlesItem.vue'

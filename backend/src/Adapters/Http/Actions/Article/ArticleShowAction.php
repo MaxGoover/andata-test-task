@@ -8,6 +8,7 @@ use App\Infrastructure\Response\JsonResponse;
 use App\UseCases\Article\ArticleShowCommand;
 use App\UseCases\Comment\CommentGetByArticleIdCommand;
 use App\UseCases\Comment\CommentGetCountByArticleIdCommand;
+use Exception;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -24,12 +25,18 @@ final readonly class ArticleShowAction
     {
         $articleId = self::getArticleId($request);
 
-        return new JsonResponse([
-            'article'       => $this->articleShowCommand->handle($articleId),
-            'comments'      => $this->commentGetByArticleIdCommand->handle($articleId),
-            'countComments' => $this->commentGetCountByArticleIdCommand->handle($articleId),
-            'message'       => 'Article showed successfully',
-        ]);
+        try {
+            return new JsonResponse([
+                'article'       => $this->articleShowCommand->handle($articleId),
+                'comments'      => $this->commentGetByArticleIdCommand->handle($articleId),
+                'countComments' => $this->commentGetCountByArticleIdCommand->handle($articleId),
+                'message'       => 'Article showed successfully',
+            ]);
+        } catch (Exception $e) {
+            return new JsonResponse([
+                'message'  => $e->getMessage(),
+            ], 400);
+        }
     }
 
     /**
