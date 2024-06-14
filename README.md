@@ -1,9 +1,9 @@
 # andata-test-task
 
-В данном репозитории представлено решение тестового задания для компании Андата
+В данном репозитории представлено решение тестового задания для компании "Андата"
 
 Задание:
-  Необходимо разработать SPA веб-сайт с простой системой комментирования.
+  Необходимо разработать SPA веб-сайт с простой системой комментирования
 
 Решение:
   Для того, чтобы развернуть проект на локальной машине, необходимо:
@@ -12,18 +12,27 @@
 
   Пошаговая инструкция:
   1. Склонировать текущий репозиторий
-  2. Перейти в папку с проектом andata-test-task
-  3. Создать переменную окружения .env из копии файла .env.example командой:
+  2. Открыть в IDE папку с проектом andata-test-task
+  3. Открыть терминал
+  4. Перейти в папку backend командой:
   ```
-  cp ./backend/.env.example ./backend/.env
+  cd backend
   ```
-  4. Собрать приложение командой:
+  5. Создать переменную окружения .env из копии файла .env.example командой:
   ```
-  cd backend && docker compose build && docker compose up
+  cp .env.example .env
   ```
-  5. Импортировать дамп БД в контейнер mysql командой:
+  5. Собрать приложение командой:
   ```
-  cd backend/mysql/dumps && docker exec -i andata-blog-mysql mysql -uroot -ppassword andata_blog < andata_blog_13-06-2024.sql
+  docker compose build && docker compose up
   ```
-  6. Открыть браузер и перейти на вкладку с url: http://localhost
-  7. Попробовать по создавать статьи и комментарии к ним
+  6. Установить зависимости для php командой:
+  ```
+  docker exec -i andata-blog-backend composer install
+  ```
+  7. Импортировать дамп БД в контейнер mysql командой:
+  ```
+  cd mysql/dumps && docker exec -i andata-blog-mysql mysql -uroot -ppassword andata_blog < andata_blog_13-06-2024.sql
+  ```
+  8. Открыть браузер и перейти на вкладку с url: http://localhost
+  9. Попробовать посоздавать статьи и комментарии к ним
