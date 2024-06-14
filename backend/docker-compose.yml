@@ -3,13 +3,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: cloudsigma.com/php
+      args:
+        - PHP_VERSION=${PHP_VERSION}
     container_name: ${APP_NAME}-backend
-    restart: unless-stopped
-    tty: true
-    environment:
-      SERVICE_NAME: backend
-      SERVICE_TAGS: dev
     working_dir: /var/www/api/
     volumes:
       - ./:/var/www/api/
@@ -17,11 +13,12 @@ services:
       - app-network
 
   frontend:
-    stdin_open: true
-    container_name: ${APP_NAME}-frontend
     build:
       context: ../frontend
       dockerfile: Dockerfile
+      args:
+        - NODE_VERSION=${NODE_VERSION}
+    container_name: ${APP_NAME}-frontend
     volumes:
       - /app/node_modules
       - ../frontend:/var/www/html/
@@ -29,21 +26,19 @@ services:
       - app-network
 
   webserver:
-    depends_on:
-      - backend
-      - frontend
     build:
       context: ./nginx
       dockerfile: Dockerfile
     container_name: ${APP_NAME}-webserver
-    restart: unless-stopped
-    tty: true
     volumes:
       - ./:/var/www/api/
     ports:
       - "80:80"
     networks:
       - app-network
+    depends_on:
+      - backend
+      - frontend
 
   mysql:
     image: mysql:${MYSQL_VERSION}
@@ -54,7 +49,7 @@ services:
     volumes:
       - ./mysql/volumes:/var/lib/mysql
     ports:
-      - '8987:3306'
+      - "8987:3306"
     networks:
       - app-network
 

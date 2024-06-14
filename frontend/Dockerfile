@@ -1,4 +1,6 @@
-FROM node:20 as build-stage
+ARG NODE_VERSION
+
+FROM node:${NODE_VERSION} as build-stage
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
