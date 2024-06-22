@@ -6,11 +6,13 @@ use App\Adapters\Http\Actions\Article\ArticleCreateAction;
 use App\Adapters\Http\Actions\Article\ArticleGetCommentsAction;
 use App\Adapters\Http\Actions\Article\ArticleIndexAction;
 use App\Adapters\Http\Actions\Article\ArticleShowAction;
+use App\Adapters\Http\Actions\Article\ArticleUpdateAction;
 use App\Entities\Article\ArticleRepositoryInterface;
 use App\Infrastructure\Mysql\Repositories\ArticleRepository;
 use App\UseCases\Article\ArticleCreateCommand;
 use App\UseCases\Article\ArticleIndexCommand;
 use App\UseCases\Article\ArticleShowCommand;
+use App\UseCases\Article\ArticleUpdateCommand;
 use App\UseCases\Comment\CommentGetByArticleIdCommand;
 use App\UseCases\Comment\CommentGetCountByArticleIdCommand;
 use Psr\Container\ContainerInterface;
@@ -54,5 +56,13 @@ return [
             $container->get(CommentGetByArticleIdCommand::class),
             $container->get(CommentGetCountByArticleIdCommand::class),
         );
+    },
+
+    // update
+    ArticleUpdateCommand::class => function (ContainerInterface $container) {
+        return new ArticleUpdateCommand($container->get(ArticleRepositoryInterface::class));
+    },
+    ArticleUpdateAction::class => function (ContainerInterface $container) {
+        return new ArticleUpdateAction($container->get(ArticleUpdateCommand::class));
     },
 ];

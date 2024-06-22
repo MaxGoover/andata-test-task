@@ -5,7 +5,7 @@
 
     <template v-else>
       <!--Статья-->
-      <q-card v-if="!isEmpty(articles.selected)" class="q-mb-sm" bordered flat>
+      <q-card v-if="!isEmpty(articles.selected)" class="q-mb-sm" bordered flat role="article">
         <q-card-section>
           <div class="text-weight-bold q-mb-xs font-lato">
             <span class="q-mr-lg">{{ articles.selected.author_username }}</span>
@@ -47,14 +47,15 @@
       </q-card>
 
       <!--Комментарии-->
-      <template v-if="!isEmpty(comments.list)">
+      <q-list v-if="!isEmpty(comments.list)" role="list">
         <CommentsItem
           v-for="comment in comments.list"
           :key="comment.id"
           class="js-comment"
+          role="listitem"
           :comment="comment"
         />
-      </template>
+      </q-list>
     </template>
   </div>
 </template>

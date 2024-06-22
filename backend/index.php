@@ -6,6 +6,7 @@ use App\Adapters\Http\Actions\Article\ArticleCreateAction;
 use App\Adapters\Http\Actions\Article\ArticleGetCommentsAction;
 use App\Adapters\Http\Actions\Article\ArticleIndexAction;
 use App\Adapters\Http\Actions\Article\ArticleShowAction;
+use App\Adapters\Http\Actions\Article\ArticleUpdateAction;
 use App\Adapters\Http\Actions\Comment\CommentCreateAction;
 use Dotenv\Dotenv;
 use GuzzleHttp\Psr7\ServerRequest;
@@ -40,6 +41,8 @@ if (preg_match('/^\/api\/articles\/\d+\/get-comments$/', $uri) && $method === 'G
     echo $container->get(ArticleShowAction::class)->handle($request)->getBody()->getContents();
 } elseif (preg_match('/^\/api\/articles\/create$/', $uri) && $method === 'POST') {
     echo $container->get(ArticleCreateAction::class)->handle($request)->getBody()->getContents();
+} elseif (preg_match('/^\/api\/articles\/update$/', $uri) && $method === 'POST') {
+    echo $container->get(ArticleUpdateAction::class)->handle($request)->getBody()->getContents();
 } elseif (preg_match('/^\/api\/articles$/', $uri) && $method === 'GET') {
     echo $container->get(ArticleIndexAction::class)->handle()->getBody()->getContents();
 } elseif (preg_match('/^\/api\/comments\/create$/', $uri) && $method === 'POST') {

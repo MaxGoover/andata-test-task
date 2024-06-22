@@ -25,16 +25,24 @@
         unelevated
         :label="$t('action.add.article')"
         :title="$t('action.add.article')"
-        @click="articles.showCreateModal"
+        @click="showArticleCreateModal"
       />
     </q-toolbar>
   </q-header>
 </template>
 
 <script setup>
+import { isEmpty } from 'lodash'
 import { useArticlesStore } from 'stores/articles'
 import ComponentIcon from 'components/common/ComponentIcon.vue'
 import IconLogo from 'assets/icons/IconLogo.vue'
 
 const articles = useArticlesStore()
+const showArticleCreateModal = () => {
+  articles.showCreateModal()
+  if (!isEmpty(articles.selected)) {
+    articles.clearSelected()
+    articles.clearForm()
+  }
+}
 </script>

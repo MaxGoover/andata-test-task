@@ -14,8 +14,8 @@
       outlined
       :error="v$.title.$error"
       :error-message="v$.title.$errors.at(-1)?.$message"
-      :label="$t('field.title.comment')"
-      :title="$t('field.title.comment')"
+      :label="$t('field.title.article')"
+      :title="$t('field.title.article')"
       @blur="v$.title.$touch"
     />
 

@@ -6,6 +6,8 @@ export default {
     },
     cancel: 'Отменить',
     close: 'Закрыть',
+    delete: 'Удалить',
+    edit: 'Изменить',
     save: 'Сохранить',
   },
   company: {
@@ -33,6 +35,7 @@ export default {
         getComments: 'Не удалось получить комментарии статьи',
         index: 'Не удалось получить список статей',
         show: 'Не удалось получить статью',
+        update: 'Не удалось сохранить изменения в статье',
       },
       comments: {
         create: 'Не удалось сохранить комментарий',
@@ -42,6 +45,7 @@ export default {
     success: {
       articles: {
         create: 'Статья сохранена успешно',
+        update: 'Статья отредактирована успешно',
       },
       comments: {
         create: 'Комментарий сохранен успешно',
@@ -64,6 +68,9 @@ export default {
     },
     article: 'Статья',
     comments: 'Комментарии',
+    edit: {
+      article: 'Редактировать статью',
+    },
   },
   validators: {
     email: 'Некорректный E-mail',

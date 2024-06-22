@@ -22,17 +22,17 @@
   ```
   cp .env.example .env
   ```
-  5. Собрать приложение командой:
+  6. Собрать приложение командой:
   ```
   docker compose build && docker compose up
   ```
-  6. Установить зависимости для php командой:
+  7. Установить зависимости для php командой:
   ```
   docker exec -i andata-blog-backend composer install
   ```
-  7. Импортировать дамп БД в контейнер mysql командой:
+  8. Импортировать дамп БД в контейнер mysql командой:
   ```
   cd mysql/dumps && docker exec -i andata-blog-mysql mysql -uroot -ppassword andata_blog < andata_blog_13-06-2024.sql
   ```
-  8. Открыть браузер и перейти на вкладку с url: http://localhost
-  9. Попробовать посоздавать статьи и комментарии к ним
+  9. Открыть браузер и перейти на вкладку с url: http://localhost
+  10. Попробовать посоздавать статьи и комментарии к ним

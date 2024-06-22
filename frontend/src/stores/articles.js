@@ -1,20 +1,24 @@
+import { $t } from 'boot/i18n'
+import { cloneDeep } from 'lodash'
 import { defineStore } from 'pinia'
-import { i18n } from 'boot/i18n'
 import { useCommentsStore } from 'stores/comments'
 import axios from 'axios'
 import notify from 'src/utils/helpers/notify'
+import routesApi from 'src/utils/consts/routes/api'
 
 const comments = useCommentsStore()
 
 export const useArticlesStore = defineStore('articles', {
   state: () => ({
     form: {
+      id: null,
       author_email: '',
       author_username: '',
       content: '',
       title: '',
     },
     isShowedCreateModal: false,
+    isShowedUpdateModal: false,
     list: [], // список статей
     selected: {}, // выбранная статья
   }),
@@ -26,13 +30,9 @@ export const useArticlesStore = defineStore('articles', {
      */
     async create() {
       return axios
-        .post('/api/articles/create', this.form)
-        .then(() => {
-          this.clearForm()
-          this.hideCreateModal()
-        })
+        .post(routesApi.ARTICLE.CREATE, this.form)
         .catch(() => {
-          notify.error(i18n.global.t('message.error.articles.create'))
+          notify.error($t('message.error.articles.create'))
         })
     },
     /**
@@ -42,13 +42,13 @@ export const useArticlesStore = defineStore('articles', {
      */
     async getComments(id) {
       return axios
-        .get(`/api/articles/${id}/get-comments`)
+        .get(routesApi.ARTICLE.GET_COMMENTS(id))
         .then((response) => {
           comments.setCount(response.data.countComments)
           comments.setList(response.data.comments)
         })
         .catch(() => {
-          notify.error(i18n.global.t('message.error.articles.getComments'))
+          notify.error($t('message.error.articles.getComments'))
         })
     },
     /**
@@ -57,12 +57,12 @@ export const useArticlesStore = defineStore('articles', {
      */
     async index() {
       return axios
-        .get('/api/articles')
+        .get(routesApi.ARTICLE.INDEX)
         .then((response) => {
           this.setList(response.data.articles)
         })
         .catch(() => {
-          notify.error(i18n.global.t('message.error.articles.index'))
+          notify.error($t('message.error.articles.index'))
         })
     },
     /**
@@ -72,14 +72,25 @@ export const useArticlesStore = defineStore('articles', {
      */
     async show(id) {
       return axios
-        .get(`/api/articles/${id}`)
+        .get(routesApi.ARTICLE.SHOW(id))
         .then((response) => {
           this.setSelected(response.data.article)
           comments.setCount(response.data.countComments)
           comments.setList(response.data.comments)
         })
         .catch(() => {
-          notify.error(i18n.global.t('message.error.articles.index'))
+          notify.error($t('message.error.articles.index'))
+        })
+    },
+    /**
+     * Редактирует статью.
+     * @returns {Promise}
+     */
+    async update() {
+      return axios
+        .post(routesApi.ARTICLE.UPDATE, this.form)
+        .catch(() => {
+          notify.error($t('message.error.articles.update'))
         })
     },
     /**
@@ -87,6 +98,7 @@ export const useArticlesStore = defineStore('articles', {
      * @returns {void}
      */
     clearForm() {
+      this.form.id = null
       this.form.author_email = ''
       this.form.author_username = ''
       this.form.content = ''
@@ -107,6 +119,16 @@ export const useArticlesStore = defineStore('articles', {
       this.isShowedCreateModal = false
     },
     /**
+     * Скрывает модальное окно редактирования статьи.
+     * @returns {void}
+     */
+    hideUpdateModal() {
+      this.isShowedUpdateModal = false
+    },
+    setForm(article) {
+      this.form = cloneDeep(article)
+    },
+    /**
      * Изменяет список статей.
      * @param {Array} - массив объектов статей
      * @returns {void}
@@ -120,7 +142,7 @@ export const useArticlesStore = defineStore('articles', {
      * @returns {void}
      */
     setSelected(article) {
-      this.selected = article
+      this.selected = cloneDeep(article)
     },
     /**
      * Показывает модальное окно создания статьи.
@@ -128,6 +150,13 @@ export const useArticlesStore = defineStore('articles', {
      */
     showCreateModal() {
       this.isShowedCreateModal = true
+    },
+    /**
+     * Показывает модальное окно редактирования статьи.
+     * @returns {void}
+     */
+    showUpdateModal() {
+      this.isShowedUpdateModal = true
     },
   },
 })

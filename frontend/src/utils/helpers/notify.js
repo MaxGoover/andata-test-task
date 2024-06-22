@@ -1,5 +1,5 @@
 // Настройки всплывающих уведомлений-тостов
-import { i18n } from 'boot/i18n'
+import { $t } from 'boot/i18n'
 import { Notify } from 'quasar'
 
 export default {
@@ -7,7 +7,7 @@ export default {
     return Notify.create({
       badgeColor: 'yellow',
       badgeTextColor: 'black',
-      closeBtn: i18n.global.t('action.close'),
+      closeBtn: $t('action.close'),
       message,
       multiLine: true,
       position: 'bottom',
@@ -18,7 +18,7 @@ export default {
     return Notify.create({
       badgeColor: 'yellow',
       badgeTextColor: 'black',
-      closeBtn: i18n.global.t('action.close'),
+      closeBtn: $t('action.close'),
       message,
       multiLine: true,
       position: 'bottom',
@@ -29,7 +29,7 @@ export default {
     return Notify.create({
       badgeColor: 'yellow',
       badgeTextColor: 'black',
-      closeBtn: i18n.global.t('action.close'),
+      closeBtn: $t('action.close'),
       message,
       multiLine: true,
       position: 'bottom',
@@ -41,7 +41,7 @@ export default {
       actions,
       badgeColor: 'yellow',
       badgeTextColor: 'black',
-      closeBtn: i18n.global.t('action.close'),
+      closeBtn: $t('action.close'),
       message,
       multiLine: true,
       position: 'bottom',

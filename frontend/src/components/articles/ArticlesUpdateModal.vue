@@ -2,7 +2,7 @@
   <ComponentModal :model-value="isShowed" :height="70" :hide-modal="hideModal" :width="70">
     <!--Заголовок-->
     <template #title>
-      <ComponentTitle :text="$t('title.add.article')" />
+      <ComponentTitle :text="$t('title.edit.article')" />
     </template>
 
     <!--Форма создания статьи-->
@@ -19,7 +19,7 @@
           </q-btn>
         </div>
         <div class="col-3">
-          <q-btn class="full-width" color="indigo-5" no-caps unelevated @click="createArticle">
+          <q-btn class="full-width" color="indigo-5" no-caps unelevated @click="updateArticle">
             {{ $t('action.save') }}
           </q-btn>
         </div>
@@ -66,7 +66,7 @@ const errorFieldElement = () => {
  * Сохраняет статью.
  * @returns {Promise|false}
  */
-const createArticle = async () => {
+const updateArticle = async () => {
   const isValidArticle = await articlesFormRef.value.v$.$validate()
 
   if (!isValidArticle) {
@@ -75,10 +75,11 @@ const createArticle = async () => {
     return false
   }
 
-  return articles.create().then(() => {
+  return articles.update().then(() => {
     props.hideModal()
     articles.clearForm()
-    notify.success(t('message.success.articles.create'))
+    articles.clearSelected()
+    notify.success(t('message.success.articles.update'))
     articles.index()
   })
 }

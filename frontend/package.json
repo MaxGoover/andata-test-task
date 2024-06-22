@@ -26,7 +26,9 @@
   },
   "devDependencies": {
     "@intlify/vite-plugin-vue-i18n": "^3.3.1",
+    "@playwright/test": "^1.44.1",
     "@quasar/app-vite": "^1.9.0",
+    "@types/node": "^20.14.2",
     "autoprefixer": "^10.4.2",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^8.1.0",

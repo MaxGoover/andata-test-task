@@ -11,9 +11,9 @@ final class Article
         public AuthorEmail $author_email,
         public Title $title,
         public Content $content,
-        public string $created_at,
+        public ?string $created_at = null,
         public ?string $updated_at = null,
-        public ?string $deleted_at = null,
+        public ?string $deleted_at  = null,
     ) {
     }
 }

@@ -5,9 +5,14 @@
 
     <template v-else>
       <!--Список статей-->
-      <template v-if="!isEmpty(articles.list)">
-        <ArticlesItem v-for="article in articles.list" :key="article.id" :article="article" />
-      </template>
+      <q-list v-if="!isEmpty(articles.list)" role="list">
+        <ArticlesItem
+          v-for="article in articles.list"
+          :key="article.id"
+          role="listitem"
+          :article="article"
+        />
+      </q-list>
       <div v-else class="q-ma-sm">
         <span>{{ $t('table.noData.articles') }}</span>
       </div>

@@ -31,7 +31,7 @@
     >
       <template #control>
         <q-editor
-          v-model="v$.content.$model"
+          v-model="form.content"
           class="full-width"
           :label="$t('field.title.comment')"
           :style="v$.content.$error ? 'border-color: var(--q-negative)' : ''"

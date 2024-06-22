@@ -14,12 +14,19 @@
       :hideModal="articles.hideCreateModal"
       :isShowed="articles.isShowedCreateModal"
     />
+
+    <!--Модальное окно редактирования статьи-->
+    <ArticlesUpdateModal
+      :hideModal="articles.hideUpdateModal"
+      :isShowed="articles.isShowedUpdateModal"
+    />
   </div>
 </template>
 
 <script setup>
 import { useArticlesStore } from 'stores/articles'
 import ArticlesCreateModal from 'components/articles/ArticlesCreateModal.vue'
+import ArticlesUpdateModal from 'components/articles/ArticlesUpdateModal.vue'
 import BlogFooter from 'components/blog/BlogFooter.vue'
 import BlogHeader from 'components/blog/BlogHeader.vue'
 

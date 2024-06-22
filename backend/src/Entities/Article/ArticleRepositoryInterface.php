@@ -11,4 +11,6 @@ interface ArticleRepositoryInterface
     public function getById(int $id): array;
 
     public function index(): array;
+
+    public function update(Article $article, int $articleId): string|false;
 }

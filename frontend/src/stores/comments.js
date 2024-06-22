@@ -1,5 +1,5 @@
+import { $t } from 'boot/i18n'
 import { defineStore } from 'pinia'
-import { i18n } from 'boot/i18n'
 import axios from 'axios'
 import notify from 'src/utils/helpers/notify'
 
@@ -25,10 +25,10 @@ export const useCommentsStore = defineStore('comments', {
       return axios
         .post('/api/comments/create', this.form)
         .then(() => {
-          notify.success(i18n.global.t('message.success.comments.create'))
+          notify.success($t('message.success.comments.create'))
         })
         .catch(() => {
-          notify.error(i18n.global.t('message.error.comments.create'))
+          notify.error($t('message.error.comments.create'))
         })
     },
     /**
