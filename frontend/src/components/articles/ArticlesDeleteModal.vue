@@ -1,13 +1,19 @@
 <template>
-  <ComponentModal :model-value="isShowed" :height="70" :hide-modal="hideModal" :width="70">
+  <ComponentModal :model-value="isShowed" :height="30" :hide-modal="hideModal" :width="50">
     <!--Заголовок-->
     <template #title>
-      <ComponentTitle :text="$t('title.edit.article')" />
+      <ComponentTitle :text="$t('title.delete.article')" />
     </template>
 
     <!--Форма создания статьи-->
     <template #content>
-      <ArticlesForm ref="articlesFormRef" />
+      <div class="q-mt-xl font-size-16">
+        <span>
+          {{ $t('confirm.delete') }}
+          <span class="text-weight-bold">{{ articles.selected.title }}</span>
+          ?
+        </span>
+      </div>
     </template>
 
     <!--Действия-->
@@ -19,8 +25,8 @@
           </q-btn>
         </div>
         <div class="col-3">
-          <q-btn class="full-width" color="indigo-5" no-caps unelevated @click="updateArticle">
-            {{ $t('action.save') }}
+          <q-btn class="full-width" color="indigo-5" no-caps unelevated @click="deleteArticle">
+            {{ $t('action.delete') }}
           </q-btn>
         </div>
       </div>
@@ -29,11 +35,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { scrollToElement } from 'src/utils/helpers/index'
 import { useArticlesStore } from 'stores/articles'
 import { useI18n } from 'vue-i18n'
-import ArticlesForm from 'components/articles/ArticlesForm.vue'
 import ComponentModal from 'components/common/ComponentModal.vue'
 import ComponentTitle from 'components/common/ComponentTitle.vue'
 import notify from 'src/utils/helpers/notify'
@@ -51,35 +54,16 @@ const props = defineProps({
 
 const { t } = useI18n()
 const articles = useArticlesStore()
-const articlesFormRef = ref(null)
-
-/**
- * Возвращает поле (DOM-элемент) статьи, содержащий ошибку валидации.
- * @returns {Object}
- */
-const errorFieldElement = () => {
-  const elements = document.querySelectorAll('.q-field--error')
-  return elements[0]
-}
 
 /**
  * Сохраняет статью.
  * @returns {Promise|false}
  */
-const updateArticle = async () => {
-  const isValidArticle = await articlesFormRef.value.v$.$validate()
-
-  if (!isValidArticle) {
-    scrollToElement(errorFieldElement())
-    notify.error(t('message.error.validation'))
-    return false
-  }
-
-  return articles.update(articles.form.id).then(() => {
+const deleteArticle = async () => {
+  return articles.delete(articles.selected.id).then(() => {
     props.hideModal()
-    articles.clearForm()
     articles.clearSelected()
-    notify.success(t('message.success.articles.update'))
+    notify.success(t('message.success.articles.delete'))
     articles.index()
   })
 }

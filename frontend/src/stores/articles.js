@@ -18,6 +18,7 @@ export const useArticlesStore = defineStore('articles', {
       title: '',
     },
     isShowedCreateModal: false,
+    isShowedDeleteModal: false,
     isShowedUpdateModal: false,
     list: [], // список статей
     selected: {}, // выбранная статья
@@ -29,11 +30,19 @@ export const useArticlesStore = defineStore('articles', {
      * @returns {Promise}
      */
     async create() {
-      return axios
-        .post(routesApi.ARTICLE.CREATE, this.form)
-        .catch(() => {
-          notify.error($t('message.error.articles.create'))
-        })
+      return axios.post(routesApi.ARTICLE.CREATE, this.form).catch(() => {
+        notify.error($t('message.error.articles.create'))
+      })
+    },
+    /**
+     * Удаляет статью по её идентификатору.
+     * @param {Number} id
+     * @returns {Promise}
+     */
+    async delete(id) {
+      return axios.delete(routesApi.ARTICLE.DELETE(id)).catch(() => {
+        notify.error($t('message.error.articles.delete'))
+      })
     },
     /**
      * Получает все комментарии к статье.
@@ -86,12 +95,10 @@ export const useArticlesStore = defineStore('articles', {
      * Редактирует статью.
      * @returns {Promise}
      */
-    async update() {
-      return axios
-        .post(routesApi.ARTICLE.UPDATE, this.form)
-        .catch(() => {
-          notify.error($t('message.error.articles.update'))
-        })
+    async update(id) {
+      return axios.put(routesApi.ARTICLE.UPDATE(id), this.form).catch(() => {
+        notify.error($t('message.error.articles.update'))
+      })
     },
     /**
      * Очищает форму статьи.
@@ -119,12 +126,24 @@ export const useArticlesStore = defineStore('articles', {
       this.isShowedCreateModal = false
     },
     /**
+     * Скрывает модальное окно удаления статьи.
+     * @returns {void}
+     */
+    hideDeleteModal() {
+      this.isShowedDeleteModal = false
+    },
+    /**
      * Скрывает модальное окно редактирования статьи.
      * @returns {void}
      */
     hideUpdateModal() {
       this.isShowedUpdateModal = false
     },
+    /**
+     * Изменяет данные формы статьи.
+     * @param {Object} - объект статьи
+     * @returns {void}
+     */
     setForm(article) {
       this.form = cloneDeep(article)
     },
@@ -150,6 +169,13 @@ export const useArticlesStore = defineStore('articles', {
      */
     showCreateModal() {
       this.isShowedCreateModal = true
+    },
+    /**
+     * Показывает модальное окно удаления статьи.
+     * @returns {void}
+     */
+    showDeleteModal() {
+      this.isShowedDeleteModal = true
     },
     /**
      * Показывает модальное окно редактирования статьи.

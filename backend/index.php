@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Adapters\Http\Actions\Article\ArticleCreateAction;
+use App\Adapters\Http\Actions\Article\ArticleDeleteAction;
 use App\Adapters\Http\Actions\Article\ArticleGetCommentsAction;
 use App\Adapters\Http\Actions\Article\ArticleIndexAction;
 use App\Adapters\Http\Actions\Article\ArticleShowAction;
@@ -39,12 +40,14 @@ if (preg_match('/^\/api\/articles\/\d+\/get-comments$/', $uri) && $method === 'G
     echo $container->get(ArticleGetCommentsAction::class)->handle($request)->getBody()->getContents();
 } elseif (preg_match('/^\/api\/articles\/\d+$/', $uri) && $method === 'GET') {
     echo $container->get(ArticleShowAction::class)->handle($request)->getBody()->getContents();
-} elseif (preg_match('/^\/api\/articles\/create$/', $uri) && $method === 'POST') {
-    echo $container->get(ArticleCreateAction::class)->handle($request)->getBody()->getContents();
-} elseif (preg_match('/^\/api\/articles\/update$/', $uri) && $method === 'POST') {
+} elseif (preg_match('/^\/api\/articles\/\d+$/', $uri) && $method === 'DELETE') {
+    echo $container->get(ArticleDeleteAction::class)->handle($request)->getBody()->getContents();
+} elseif (preg_match('/^\/api\/articles\/\d+$/', $uri) && $method === 'PUT') {
     echo $container->get(ArticleUpdateAction::class)->handle($request)->getBody()->getContents();
 } elseif (preg_match('/^\/api\/articles$/', $uri) && $method === 'GET') {
     echo $container->get(ArticleIndexAction::class)->handle()->getBody()->getContents();
-} elseif (preg_match('/^\/api\/comments\/create$/', $uri) && $method === 'POST') {
+} elseif (preg_match('/^\/api\/articles$/', $uri) && $method === 'POST') {
+    echo $container->get(ArticleCreateAction::class)->handle($request)->getBody()->getContents();
+} elseif (preg_match('/^\/api\/comments$/', $uri) && $method === 'POST') {
     echo $container->get(CommentCreateAction::class)->handle($request)->getBody()->getContents();
 }

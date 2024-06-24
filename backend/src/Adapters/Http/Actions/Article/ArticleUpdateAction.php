@@ -10,7 +10,7 @@ use App\Entities\Article\AuthorUsername;
 use App\Entities\Article\Content;
 use App\Entities\Article\Title;
 use App\Infrastructure\Response\JsonResponse;
-use App\UseCases\Article\articleUpdateCommand;
+use App\UseCases\Article\ArticleUpdateCommand;
 use Exception;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -25,13 +25,13 @@ final readonly class ArticleUpdateAction
     public function handle(RequestInterface $request): ResponseInterface
     {
         /*
-         * @var $data['id'] int
          * @var $data['author_username'] string
          * @var $data['author_email'] string
          * @var $data['title'] string
          * @var $data['content'] string
          */
         $data = json_decode($request->getBody()->getContents(), true);
+        $articleId = self::getArticleId($request);
         $article = new Article(
             new AuthorUsername($data['author_username']),
             new AuthorEmail($data['author_email']),
@@ -43,7 +43,7 @@ final readonly class ArticleUpdateAction
 
         try {
             return new JsonResponse([
-                'article' => $this->articleUpdateCommand->handle($article, $data['id']),
+                'article' => $this->articleUpdateCommand->handle($article, $articleId),
                 'message' => 'Article created successfully',
             ]);
         } catch (Exception $e) {
@@ -51,5 +51,13 @@ final readonly class ArticleUpdateAction
                 'message'  => $e->getMessage(),
             ], 400);
         }
+    }
+
+    /**
+     * Возвращает id текущей (выбранной) статьи.
+     */
+    private static function getArticleId(RequestInterface $request): int
+    {
+        return intval(explode('/', $request->getUri()->getPath())[3]);
     }
 }

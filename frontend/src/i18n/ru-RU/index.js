@@ -7,14 +7,27 @@ export default {
     cancel: 'Отменить',
     close: 'Закрыть',
     delete: 'Удалить',
-    edit: 'Изменить',
+    edit: 'Редактировать',
     save: 'Сохранить',
   },
   company: {
     name: 'Андата',
   },
+  confirm: {
+    delete: 'Вы действительно хотите удалить',
+  },
   field: {
+    author: {
+      article: 'Автор статьи',
+      email: {
+        article: 'Email автора статьи',
+      },
+    },
     content: 'Содержание',
+    count: {
+      comments: 'Количество комментариев',
+    },
+    createdAt: 'Создан',
     email: 'Электронная почта',
     text: {
       comment: 'Текст комментария',
@@ -32,6 +45,7 @@ export default {
     error: {
       articles: {
         create: 'Не удалось сохранить статью',
+        delete: 'Не удалось удалить статью',
         getComments: 'Не удалось получить комментарии статьи',
         index: 'Не удалось получить список статей',
         show: 'Не удалось получить статью',
@@ -45,6 +59,7 @@ export default {
     success: {
       articles: {
         create: 'Статья сохранена успешно',
+        delete: 'Статья удалена успешно',
         update: 'Статья отредактирована успешно',
       },
       comments: {
@@ -65,6 +80,9 @@ export default {
     add: {
       article: 'Добавить статью',
       comment: 'Добавить комментарий',
+    },
+    delete: {
+      article: 'Удалить статью',
     },
     article: 'Статья',
     comments: 'Комментарии',

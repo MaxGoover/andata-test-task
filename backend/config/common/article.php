@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Adapters\Http\Actions\Article\ArticleCreateAction;
+use App\Adapters\Http\Actions\Article\ArticleDeleteAction;
 use App\Adapters\Http\Actions\Article\ArticleGetCommentsAction;
 use App\Adapters\Http\Actions\Article\ArticleIndexAction;
 use App\Adapters\Http\Actions\Article\ArticleShowAction;
@@ -10,6 +11,7 @@ use App\Adapters\Http\Actions\Article\ArticleUpdateAction;
 use App\Entities\Article\ArticleRepositoryInterface;
 use App\Infrastructure\Mysql\Repositories\ArticleRepository;
 use App\UseCases\Article\ArticleCreateCommand;
+use App\UseCases\Article\ArticleDeleteCommand;
 use App\UseCases\Article\ArticleIndexCommand;
 use App\UseCases\Article\ArticleShowCommand;
 use App\UseCases\Article\ArticleUpdateCommand;
@@ -28,6 +30,14 @@ return [
     },
     ArticleCreateAction::class => function (ContainerInterface $container) {
         return new ArticleCreateAction($container->get(ArticleCreateCommand::class));
+    },
+
+    // delete
+    ArticleDeleteCommand::class => function (ContainerInterface $container) {
+        return new ArticleDeleteCommand($container->get(ArticleRepositoryInterface::class));
+    },
+    ArticleDeleteAction::class => function (ContainerInterface $container) {
+        return new ArticleDeleteAction($container->get(ArticleDeleteCommand::class));
     },
 
     // get comments

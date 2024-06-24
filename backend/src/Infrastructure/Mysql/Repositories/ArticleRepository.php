@@ -33,10 +33,22 @@ final class ArticleRepository implements ArticleRepositoryInterface
         return $this->pdo->lastInsertId();
     }
 
+    /** Удаляет статью. */
+    public function delete(int $articleId): bool
+    {
+        $sql = "UPDATE articles
+                SET deleted_at = ?
+                WHERE id = ?";
+        $stmt = $this->pdo->prepare($sql);
+
+        return $stmt->execute([date('Y-m-d H:i:s'), $articleId]);
+    }
+
     /** Получает статью по её id. */
     public function getById(int $id): array
     {
-        $sql = "SELECT * FROM articles WHERE id = ?";
+        $sql = "SELECT * FROM articles 
+                WHERE id = ? AND WHERE deleted_at IS NULL";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$id]);
 
@@ -49,6 +61,7 @@ final class ArticleRepository implements ArticleRepositoryInterface
         $sql = "SELECT articles.*, COUNT(comments.id) AS count_comments
                 FROM articles
                 LEFT JOIN comments ON articles.id = comments.article_id
+                WHERE articles.deleted_at IS NULL
                 GROUP BY articles.id";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
@@ -57,14 +70,14 @@ final class ArticleRepository implements ArticleRepositoryInterface
     }
 
     /** Редактирует статью. */
-    public function update(Article $article, int $articleId): string|false
+    public function update(Article $article, int $articleId): bool
     {
         $sql = "UPDATE articles
                 SET author_username = ?, author_email = ?, title = ?, content = ?, updated_at = ? 
                 WHERE id = ?";
-
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([
+
+        return $stmt->execute([
             $article->author_username->getValue(),
             $article->author_email->getValue(),
             $article->title->getValue(),
@@ -72,7 +85,5 @@ final class ArticleRepository implements ArticleRepositoryInterface
             $article->updated_at,
             $articleId,
         ]);
-
-        return $this->pdo->lastInsertId();
     }
 }

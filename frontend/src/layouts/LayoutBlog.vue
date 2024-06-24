@@ -15,6 +15,12 @@
       :isShowed="articles.isShowedCreateModal"
     />
 
+    <!--Модальное окно добавления статьи-->
+    <ArticlesDeleteModal
+      :hideModal="articles.hideDeleteModal"
+      :isShowed="articles.isShowedDeleteModal"
+    />
+
     <!--Модальное окно редактирования статьи-->
     <ArticlesUpdateModal
       :hideModal="articles.hideUpdateModal"
@@ -26,6 +32,7 @@
 <script setup>
 import { useArticlesStore } from 'stores/articles'
 import ArticlesCreateModal from 'components/articles/ArticlesCreateModal.vue'
+import ArticlesDeleteModal from 'components/articles/ArticlesDeleteModal.vue'
 import ArticlesUpdateModal from 'components/articles/ArticlesUpdateModal.vue'
 import BlogFooter from 'components/blog/BlogFooter.vue'
 import BlogHeader from 'components/blog/BlogHeader.vue'

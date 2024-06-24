@@ -8,9 +8,11 @@ interface ArticleRepositoryInterface
 {
     public function create(Article $article): string|false;
 
+    public function delete(int $id): bool;
+
     public function getById(int $id): array;
 
     public function index(): array;
 
-    public function update(Article $article, int $articleId): string|false;
+    public function update(Article $article, int $articleId): bool;
 }
