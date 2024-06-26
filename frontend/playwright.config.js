@@ -26,5 +26,5 @@ module.exports = defineConfig({
   use: {
     trace: 'on-first-retry',
   },
-  workers: process.env.CI ? 1 : undefined,
+  workers: 1,
 })

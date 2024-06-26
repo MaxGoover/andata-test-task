@@ -24,24 +24,24 @@ final readonly class ArticleUpdateAction
 
     public function handle(RequestInterface $request): ResponseInterface
     {
-        /*
-         * @var $data['author_username'] string
-         * @var $data['author_email'] string
-         * @var $data['title'] string
-         * @var $data['content'] string
-         */
-        $data = json_decode($request->getBody()->getContents(), true);
-        $articleId = self::getArticleId($request);
-        $article = new Article(
-            new AuthorUsername($data['author_username']),
-            new AuthorEmail($data['author_email']),
-            new Title($data['title']),
-            new Content($data['content']),
-            null,
-            date('Y-m-d H:i:s'),
-        );
-
         try {
+            /*
+            * @var $data['author_username'] string
+            * @var $data['author_email'] string
+            * @var $data['title'] string
+            * @var $data['content'] string
+            */
+            $data = json_decode($request->getBody()->getContents(), true);
+            $articleId = self::getArticleId($request);
+            $article = new Article(
+                new AuthorUsername($data['author_username']),
+                new AuthorEmail($data['author_email']),
+                new Title($data['title']),
+                new Content($data['content']),
+                null,
+                date('Y-m-d H:i:s'),
+            );
+
             return new JsonResponse([
                 'article' => $this->articleUpdateCommand->handle($article, $articleId),
                 'message' => 'Article created successfully',

@@ -24,24 +24,24 @@ final class CommentCreateAction
 
     public function handle(RequestInterface $request): ResponseInterface
     {
-        /*
-         * @var $data['article_id'] int
-         * @var $data['author_username'] string
-         * @var $data['author_email'] string
-         * @var $data['title'] string
-         * @var $data['content'] string
-         */
-        $data = json_decode($request->getBody()->getContents(), true);
-        $comment = new Comment(
-            intval($data['article_id']),
-            new AuthorUsername($data['author_username']),
-            new AuthorEmail($data['author_email']),
-            new Title($data['title']),
-            new Content($data['content']),
-            date('Y-m-d H:i:s')
-        );
-
         try {
+            /*
+            * @var $data['article_id'] int
+            * @var $data['author_username'] string
+            * @var $data['author_email'] string
+            * @var $data['title'] string
+            * @var $data['content'] string
+            */
+            $data = json_decode($request->getBody()->getContents(), true);
+            $comment = new Comment(
+                intval($data['article_id']),
+                new AuthorUsername($data['author_username']),
+                new AuthorEmail($data['author_email']),
+                new Title($data['title']),
+                new Content($data['content']),
+                date('Y-m-d H:i:s')
+            );
+
             return new JsonResponse([
                 'comment' => $this->commentCreateCommand->handle($comment),
                 'message' => 'Comment created successfully',

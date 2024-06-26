@@ -21,9 +21,9 @@ final readonly class ArticleGetCommentsAction
 
     public function handle(RequestInterface $request): ResponseInterface
     {
-        $articleId = self::getArticleId($request);
-
         try {
+            $articleId = self::getArticleId($request);
+
             return new JsonResponse([
                 'comments'      => $this->commentGetByArticleIdCommand->handle($articleId),
                 'countComments' => $this->commentGetCountByArticleIdCommand->handle($articleId),

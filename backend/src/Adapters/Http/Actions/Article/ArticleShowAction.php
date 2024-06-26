@@ -23,9 +23,9 @@ final readonly class ArticleShowAction
 
     public function handle(RequestInterface $request): ResponseInterface
     {
-        $articleId = self::getArticleId($request);
-
         try {
+            $articleId = self::getArticleId($request);
+
             return new JsonResponse([
                 'article'       => $this->articleShowCommand->handle($articleId),
                 'comments'      => $this->commentGetByArticleIdCommand->handle($articleId),

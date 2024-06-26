@@ -19,9 +19,9 @@ final readonly class ArticleDeleteAction
 
     public function handle(RequestInterface $request): ResponseInterface
     {
-        $articleId = self::getArticleId($request);
-
         try {
+            $articleId = self::getArticleId($request);
+
             return new JsonResponse([
                 'article' => $this->articleDeleteCommand->handle($articleId),
                 'message' => 'Article deleted successfully',

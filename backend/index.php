@@ -13,6 +13,7 @@ use Dotenv\Dotenv;
 use GuzzleHttp\Psr7\ServerRequest;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -32,22 +33,27 @@ $uri = $request->getUri()->getPath();
 /** @var string $method */
 $method = $request->getMethod();
 
-// headers response
-header('Content-Type: application/json');
+/** @var ResponseInterface $response */
+$response = null;
 
 // routes
 if (preg_match('/^\/api\/articles\/\d+\/get-comments$/', $uri) && $method === 'GET') {
-    echo $container->get(ArticleGetCommentsAction::class)->handle($request)->getBody()->getContents();
+    $response = $container->get(ArticleGetCommentsAction::class)->handle($request);
 } elseif (preg_match('/^\/api\/articles\/\d+$/', $uri) && $method === 'GET') {
-    echo $container->get(ArticleShowAction::class)->handle($request)->getBody()->getContents();
+    $response = $container->get(ArticleShowAction::class)->handle($request);
 } elseif (preg_match('/^\/api\/articles\/\d+$/', $uri) && $method === 'DELETE') {
-    echo $container->get(ArticleDeleteAction::class)->handle($request)->getBody()->getContents();
+    $response = $container->get(ArticleDeleteAction::class)->handle($request);
 } elseif (preg_match('/^\/api\/articles\/\d+$/', $uri) && $method === 'PUT') {
-    echo $container->get(ArticleUpdateAction::class)->handle($request)->getBody()->getContents();
+    $response = $container->get(ArticleUpdateAction::class)->handle($request);
 } elseif (preg_match('/^\/api\/articles$/', $uri) && $method === 'GET') {
-    echo $container->get(ArticleIndexAction::class)->handle()->getBody()->getContents();
+    $response = $container->get(ArticleIndexAction::class)->handle();
 } elseif (preg_match('/^\/api\/articles$/', $uri) && $method === 'POST') {
-    echo $container->get(ArticleCreateAction::class)->handle($request)->getBody()->getContents();
+    $response = $container->get(ArticleCreateAction::class)->handle($request);
 } elseif (preg_match('/^\/api\/comments$/', $uri) && $method === 'POST') {
-    echo $container->get(CommentCreateAction::class)->handle($request)->getBody()->getContents();
+    $response = $container->get(CommentCreateAction::class)->handle($request);
 }
+
+// response
+header('Content-Type: application/json');
+http_response_code($response->getStatusCode());
+echo $response->getBody()->getContents();
