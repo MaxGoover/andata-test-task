@@ -48,7 +48,7 @@ final class ArticleRepository implements ArticleRepositoryInterface
     public function getById(int $id): array
     {
         $sql = "SELECT * FROM articles 
-                WHERE id = ? AND WHERE deleted_at IS NULL";
+                WHERE id = ? AND deleted_at IS NULL";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$id]);
 
