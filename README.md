@@ -99,6 +99,31 @@
       </code>
     </li>
     <li>Открыть браузер и перейти на вкладку с url: <a href="http://localhost">http://localhost</a></li>
-    <li>В списке ,блога будет три статьи. Можно попробовать посоздавать статьи и комментарии к ним</li>
+    <li>В списке, блога будет три статьи. Можно попробовать посоздавать статьи и комментарии к ним</li>
+  </ol>
+</details>
+
+<details>
+  <summary>Для запуска e2e тестов</summary>
+  <ol>
+    <li>Необходимо иметь установленный менеджер пакетов npm</li>
+    <li>Перейти в папку frontend командой:
+      <br>
+      <code>
+        cd frontend
+      </code>
+    </li>
+    <li>Временно установить расширение для Playwright - браузер Chromium. В нем мы и будем запускать наши тесты:
+      <br>
+      <code>
+        npx playwright install chromium
+      </code>
+    </li>
+    <li>Запустить e2e тесты командой:
+      <br>
+      <code>
+        npx playwright test
+      </code>
+    </li>
   </ol>
 </details>

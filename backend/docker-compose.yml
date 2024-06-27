@@ -5,6 +5,7 @@ services:
       dockerfile: Dockerfile
       args:
         - PHP_VERSION=${PHP_VERSION}
+    image: ${APP_NAME}-backend
     container_name: ${APP_NAME}-backend
     working_dir: /var/www/api/
     volumes:
@@ -18,6 +19,7 @@ services:
       dockerfile: Dockerfile
       args:
         - NODE_VERSION=${NODE_VERSION}
+    image: ${APP_NAME}-frontend
     container_name: ${APP_NAME}-frontend
     volumes:
       - /app/node_modules
@@ -29,6 +31,7 @@ services:
     build:
       context: ./nginx
       dockerfile: Dockerfile
+    image: ${APP_NAME}-webserver
     container_name: ${APP_NAME}-webserver
     volumes:
       - ./:/var/www/api/
