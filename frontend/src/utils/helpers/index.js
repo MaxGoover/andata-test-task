@@ -18,6 +18,25 @@ export const castHexToRgb = (hex) => {
 }
 
 /**
+ * Генерирует строку случайных символов заданной длины.
+ * @example generateString(5) -> 'Dl8kQ'
+ * @param {Number} length
+ * @param {String} charSet
+ * @returns {String}
+ */
+export const generateString = (length) => {
+  const charSet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 '
+  let randomString = ''
+
+  for (var i = 0; i < length; i++) {
+    const randomPos = Math.floor(Math.random() * charSet.length)
+    randomString += charSet.substring(randomPos, randomPos + 1)
+  }
+
+  return randomString
+}
+
+/**
  * Скроллит экран до указанного DOM-элемента.
  * @param {Object} el - объект DOM-элемента
  * @returns {void}

@@ -3,7 +3,7 @@ import { $t } from '../../../src/boot/i18n'
 import { castHexToRgb } from '../../../src/utils/helpers/index'
 import colors from '../../../src/utils/consts/colors'
 import config from '../../config'
-import fixtures from '../../fixtures'
+import fixtures from './fixtures'
 import routes from '../../../src/utils/consts/routes/index'
 
 const { test, expect } = require('@playwright/test')

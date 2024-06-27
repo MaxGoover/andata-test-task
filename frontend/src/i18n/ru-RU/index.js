@@ -90,7 +90,7 @@ export default {
       article: 'Редактировать статью',
     },
   },
-  validators: {
+  validator: {
     email: 'Некорректный E-mail',
     maxLength: 'Максимальная длина поля {length} символов',
     minLength: 'Минимальная длина поля {length} символов',

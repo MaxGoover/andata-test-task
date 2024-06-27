@@ -8,18 +8,18 @@ import {
   required as vRequired,
 } from '@vuelidate/validators'
 
-export const email = helpers.withMessage($t('validators.email'), vEmail)
+export const email = helpers.withMessage($t('validator.email'), vEmail)
 
 export const maxLength = (max) =>
   helpers.withMessage(
-    ({ $params }) => $t('validators.maxLength', { length: $params.max }),
+    ({ $params }) => $t('validator.maxLength', { length: $params.max }),
     vMaxLength(max),
   )
 
 export const minLength = (min) =>
   helpers.withMessage(
-    ({ $params }) => $t('validators.minLength', { length: $params.min }),
+    ({ $params }) => $t('validator.minLength', { length: $params.min }),
     vMinLength(min),
   )
 
-export const required = helpers.withMessage($t('validators.required'), vRequired)
+export const required = helpers.withMessage($t('validator.required'), vRequired)
