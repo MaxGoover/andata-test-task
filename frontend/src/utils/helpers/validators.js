@@ -12,13 +12,13 @@ export const email = helpers.withMessage($t('validator.email'), vEmail)
 
 export const maxLength = (max) =>
   helpers.withMessage(
-    ({ $params }) => $t('validator.maxLength', { length: $params.max }),
+    ({ $params }) => $t('validator.maxLength') + ' - ' + $params.max ,
     vMaxLength(max),
   )
 
 export const minLength = (min) =>
   helpers.withMessage(
-    ({ $params }) => $t('validator.minLength', { length: $params.min }),
+    ({ $params }) => $t('validator.minLength') + ' - ' + $params.min ,
     vMinLength(min),
   )
 

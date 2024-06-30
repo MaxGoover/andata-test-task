@@ -30,6 +30,7 @@ export default {
     createdAt: 'Создан',
     email: 'Электронная почта',
     text: {
+      article: 'Текст статьи',
       comment: 'Текст комментария',
     },
     title: {
@@ -92,9 +93,8 @@ export default {
   },
   validator: {
     email: 'Некорректный E-mail',
-    maxLength: 'Максимальная длина поля {length} символов',
-    minLength: 'Минимальная длина поля {length} символов',
-    minValue: 'Минимальное значение {min}',
+    minLength: 'Минимальная длина поля в символах',
+    maxLength: 'Максимальная длина поля в символах',
     required: 'Поле является обязательным',
   },
 }
