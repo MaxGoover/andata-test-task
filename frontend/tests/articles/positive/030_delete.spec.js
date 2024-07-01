@@ -3,7 +3,7 @@ import { $t } from '../../../src/boot/i18n'
 import { castHexToRgb } from '../../../src/utils/helpers/index'
 import colors from '../../../src/utils/consts/colors'
 import config from '../../config'
-import fixtures from './fixtures'
+import fixtures from '../../fixtures'
 import routes from '../../../src/utils/consts/routes/index'
 
 const { test, expect } = require('@playwright/test')
@@ -63,7 +63,7 @@ test('positive article delete', async ({ page }) => {
   // Должна быть всплывашка зеленого цвета, что статья добавлена
   let alert = page
     .getByRole('alert')
-    .filter({ hasText: new RegExp($t('message.success.articles.create')) })
+    .filter({ hasText: new RegExp($t('message.success.article.create')) })
   await expect(alert).toHaveCount(1)
   await expect(alert).toHaveCSS('background-color', castHexToRgb(colors.POSITIVE))
 
@@ -89,7 +89,7 @@ test('positive article delete', async ({ page }) => {
   // Должна быть всплывашка зеленого цвета, что статья удалена
   alert = page
     .getByRole('alert')
-    .filter({ hasText: new RegExp($t('message.success.articles.delete')) })
+    .filter({ hasText: new RegExp($t('message.success.article.delete')) })
   await expect(alert).toHaveCount(1)
   await expect(alert).toHaveCSS('background-color', castHexToRgb(colors.POSITIVE))
 })

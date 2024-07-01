@@ -23,7 +23,7 @@
         <q-card-section>
           <div class="text-weight-bold q-mb-xs">
             <span class="q-mr-lg">{{ $t('title.comments') }}</span>
-            <span class="text-blue">{{ comments.count }}</span>
+            <span class="text-blue" role="figure">{{ comments.count }}</span>
           </div>
         </q-card-section>
 

@@ -79,7 +79,7 @@ const updateArticle = async () => {
     props.hideModal()
     articles.clearForm()
     articles.clearSelected()
-    notify.success(t('message.success.articles.update'))
+    notify.success(t('message.success.article.update'))
     articles.index()
   })
 }

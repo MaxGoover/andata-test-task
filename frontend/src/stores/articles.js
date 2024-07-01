@@ -31,7 +31,7 @@ export const useArticlesStore = defineStore('articles', {
      */
     async create() {
       return axios.post(routesApi.ARTICLE.CREATE, this.form).catch(() => {
-        notify.error($t('message.error.articles.create'))
+        notify.error($t('message.error.article.create'))
       })
     },
     /**
@@ -41,7 +41,7 @@ export const useArticlesStore = defineStore('articles', {
      */
     async delete(id) {
       return axios.delete(routesApi.ARTICLE.DELETE(id)).catch(() => {
-        notify.error($t('message.error.articles.delete'))
+        notify.error($t('message.error.article.delete'))
       })
     },
     /**
@@ -57,7 +57,7 @@ export const useArticlesStore = defineStore('articles', {
           comments.setList(response.data.comments)
         })
         .catch(() => {
-          notify.error($t('message.error.articles.getComments'))
+          notify.error($t('message.error.article.getComments'))
         })
     },
     /**
@@ -71,7 +71,7 @@ export const useArticlesStore = defineStore('articles', {
           this.setList(response.data.articles)
         })
         .catch(() => {
-          notify.error($t('message.error.articles.index'))
+          notify.error($t('message.error.article.index'))
         })
     },
     /**
@@ -88,7 +88,7 @@ export const useArticlesStore = defineStore('articles', {
           comments.setList(response.data.comments)
         })
         .catch(() => {
-          notify.error($t('message.error.articles.index'))
+          notify.error($t('message.error.article.index'))
         })
     },
     /**
@@ -97,7 +97,7 @@ export const useArticlesStore = defineStore('articles', {
      */
     async update(id) {
       return axios.put(routesApi.ARTICLE.UPDATE(id), this.form).catch(() => {
-        notify.error($t('message.error.articles.update'))
+        notify.error($t('message.error.article.update'))
       })
     },
     /**

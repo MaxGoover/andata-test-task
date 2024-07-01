@@ -78,7 +78,7 @@ const createArticle = async () => {
   return articles.create().then(() => {
     props.hideModal()
     articles.clearForm()
-    notify.success(t('message.success.articles.create'))
+    notify.success(t('message.success.article.create'))
     articles.index()
   })
 }

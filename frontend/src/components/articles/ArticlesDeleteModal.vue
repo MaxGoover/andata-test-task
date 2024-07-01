@@ -63,7 +63,7 @@ const deleteArticle = async () => {
   return articles.delete(articles.selected.id).then(() => {
     props.hideModal()
     articles.clearSelected()
-    notify.success(t('message.success.articles.delete'))
+    notify.success(t('message.success.article.delete'))
     articles.index()
   })
 }

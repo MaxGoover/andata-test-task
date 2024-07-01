@@ -44,7 +44,7 @@ export default {
   },
   message: {
     error: {
-      articles: {
+      article: {
         create: 'Не удалось сохранить статью',
         delete: 'Не удалось удалить статью',
         getComments: 'Не удалось получить комментарии статьи',
@@ -52,18 +52,18 @@ export default {
         show: 'Не удалось получить статью',
         update: 'Не удалось сохранить изменения в статье',
       },
-      comments: {
+      comment: {
         create: 'Не удалось сохранить комментарий',
       },
       validation: 'Ошибка валидации',
     },
     success: {
-      articles: {
+      article: {
         create: 'Статья сохранена успешно',
         delete: 'Статья удалена успешно',
         update: 'Статья отредактирована успешно',
       },
-      comments: {
+      comment: {
         create: 'Комментарий сохранен успешно',
       },
     },

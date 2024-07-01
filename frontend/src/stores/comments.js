@@ -25,10 +25,10 @@ export const useCommentsStore = defineStore('comments', {
       return axios
         .post('/api/comments', this.form)
         .then(() => {
-          notify.success($t('message.success.comments.create'))
+          notify.success($t('message.success.comment.create'))
         })
         .catch(() => {
-          notify.error($t('message.error.comments.create'))
+          notify.error($t('message.error.comment.create'))
         })
     },
     /**
