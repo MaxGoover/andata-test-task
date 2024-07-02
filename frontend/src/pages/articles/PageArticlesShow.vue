@@ -27,15 +27,15 @@
           </div>
         </q-card-section>
 
-        <q-card-section>
+        <q-card-section v-if="!comments.isShowedUpdateModal">
           <ComponentTitle :text="$t('title.add.comment')" />
         </q-card-section>
 
-        <q-card-section>
+        <q-card-section v-if="!comments.isShowedUpdateModal">
           <CommentsForm ref="commentsFormRef" />
         </q-card-section>
 
-        <q-card-section class="q-pt-none">
+        <q-card-section v-if="!comments.isShowedUpdateModal" class="q-pt-none">
           <div class="row justify-end q-col-gutter-x-lg actions">
             <div class="col-2">
               <q-btn class="full-width" color="indigo-5" no-caps unelevated @click="createComment">

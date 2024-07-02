@@ -8,4 +8,9 @@ export default {
     SHOW: (id) => `/api/articles/${id}`,
     UPDATE: (id) => `/api/articles/${id}`,
   },
+  COMMENT: {
+    CREATE: '/api/comments',
+    DELETE: (id) => `/api/comments/${id}`,
+    UPDATE: (id) => `/api/comments/${id}`,
+  },
 }

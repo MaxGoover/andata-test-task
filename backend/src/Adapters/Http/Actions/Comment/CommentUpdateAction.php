@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace App\Adapters\Http\Actions\Article;
+namespace App\Adapters\Http\Actions\Comment;
 
-use App\Entities\Article\Article;
-use App\Entities\Article\AuthorEmail;
-use App\Entities\Article\AuthorUsername;
-use App\Entities\Article\Content;
-use App\Entities\Article\Title;
+use App\Entities\Comment\Comment;
+use App\Entities\Comment\AuthorEmail;
+use App\Entities\Comment\AuthorUsername;
+use App\Entities\Comment\Content;
+use App\Entities\Comment\Title;
 use App\Infrastructure\Response\JsonResponse;
-use App\UseCases\Article\ArticleUpdateCommand;
+use App\UseCases\Comment\CommentUpdateCommand;
 use Exception;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-final readonly class ArticleUpdateAction
+final readonly class CommentUpdateAction
 {
     public function __construct(
-        private ArticleUpdateCommand $articleUpdateCommand,
+        private CommentUpdateCommand $commentUpdateCommand,
     ) {
     }
 
@@ -26,14 +26,16 @@ final readonly class ArticleUpdateAction
     {
         try {
             /*
+            * @var $data['article_id'] int
             * @var $data['author_username'] string
             * @var $data['author_email'] string
             * @var $data['title'] string
             * @var $data['content'] string
             */
             $data = json_decode($request->getBody()->getContents(), true);
-            $articleId = self::getArticleId($request);
-            $article = new Article(
+            $commentId = self::getCommentId($request);
+            $comment = new Comment(
+                $data['article_id'],
                 new AuthorUsername($data['author_username']),
                 new AuthorEmail($data['author_email']),
                 new Title($data['title']),
@@ -43,8 +45,8 @@ final readonly class ArticleUpdateAction
             );
 
             return new JsonResponse([
-                'article' => $this->articleUpdateCommand->handle($article, $articleId),
-                'message' => 'Article updated successfully',
+                'article' => $this->commentUpdateCommand->handle($comment, $commentId),
+                'message' => 'Comment updated successfully',
             ]);
         } catch (Exception $e) {
             return new JsonResponse([
@@ -54,9 +56,9 @@ final readonly class ArticleUpdateAction
     }
 
     /**
-     * Возвращает id текущей (выбранной) статьи.
+     * Возвращает id текущего комментария.
      */
-    private static function getArticleId(RequestInterface $request): int
+    private static function getCommentId(RequestInterface $request): int
     {
         return intval(explode('/', $request->getUri()->getPath())[3]);
     }

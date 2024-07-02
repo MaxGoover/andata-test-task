@@ -22,12 +22,12 @@ test('positive article update', async ({ page }) => {
   // Нажимаем кнопку "Добавить статью"
   await page.getByRole('button', { name: $t('action.add.article') }).click()
 
-  // Находим модальное окно
-  let dialog = page.getByRole('dialog')
-
   // Проверяем, чтобы заголовок у модального окна был "Добавить статью"
   await expect(
-    dialog.locator('div').filter({ hasText: new RegExp(`^${$t('title.add.article')}$`) }),
+    page
+      .getByRole('dialog')
+      .locator('div')
+      .filter({ hasText: new RegExp(`^${$t('title.add.article')}$`) }),
   ).toHaveCount(1)
 
   // Заполняем форму
@@ -48,7 +48,10 @@ test('positive article update', async ({ page }) => {
   await page.getByLabel($t('field.email')).fill(fixtures.article.create.authorEmail)
 
   // Нажимаем кнопку "Сохранить"
-  await dialog.getByRole('button', { name: $t('action.save') }).click()
+  await page
+    .getByRole('dialog')
+    .getByRole('button', { name: $t('action.save') })
+    .click()
 
   // Мы должны быть на странице /articles
   await expect(page).toHaveURL(config.link.baseUrl + routes.ARTICLE.INDEX)
@@ -67,15 +70,16 @@ test('positive article update', async ({ page }) => {
   await expect(alert).toHaveCount(1)
   await expect(alert).toHaveCSS('background-color', castHexToRgb(colors.POSITIVE))
 
+  /* Act */
   // У созданной статьи нажимаем кнопку "Редактировать"
   await article.getByRole('button', { name: $t('action.edit') }).click()
 
-  // Находим модальное окно
-  dialog = page.getByRole('dialog')
-
   // Проверяем, чтобы заголовок у модального окна был "Редактировать статью"
   await expect(
-    dialog.locator('div').filter({ hasText: new RegExp(`^${$t('title.edit.article')}$`) }),
+    page
+      .getByRole('dialog')
+      .locator('div')
+      .filter({ hasText: new RegExp(`^${$t('title.edit.article')}$`) }),
   ).toHaveCount(1)
 
   // Изменяем данные формы статьи
@@ -99,9 +103,11 @@ test('positive article update', async ({ page }) => {
   await page.getByLabel($t('field.email')).clear()
   await page.getByLabel($t('field.email')).fill(fixtures.article.update.authorEmail)
 
-  /* Act */
   // Нажимаем кнопку сохранить
-  await page.getByRole('button', { name: $t('action.save') }).click()
+  await page
+    .getByRole('dialog')
+    .getByRole('button', { name: $t('action.save') })
+    .click()
 
   /* Assert */
   // Мы должны быть на странице /articles

@@ -13,8 +13,8 @@ final readonly class ArticleDeleteCommand
     ) {
     }
 
-    public function handle(int $articleId)
+    public function handle(int $id)
     {
-        return $this->articles->delete($articleId);
+        return $this->articles->delete($id);
     }
 }

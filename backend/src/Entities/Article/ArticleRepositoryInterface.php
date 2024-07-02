@@ -14,5 +14,5 @@ interface ArticleRepositoryInterface
 
     public function index(): array;
 
-    public function update(Article $article, int $articleId): bool;
+    public function update(Article $article, int $id): bool;
 }

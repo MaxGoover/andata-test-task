@@ -34,14 +34,14 @@ final class ArticleRepository implements ArticleRepositoryInterface
     }
 
     /** Удаляет статью. */
-    public function delete(int $articleId): bool
+    public function delete(int $id): bool
     {
         $sql = "UPDATE articles
                 SET deleted_at = ?
                 WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
 
-        return $stmt->execute([date('Y-m-d H:i:s'), $articleId]);
+        return $stmt->execute([date('Y-m-d H:i:s'), $id]);
     }
 
     /** Получает статью по её id. */

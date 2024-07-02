@@ -8,7 +8,7 @@ import routes from '../../../src/utils/consts/routes/index'
 
 const { test, expect } = require('@playwright/test')
 
-test('positive comment create', async ({ page }) => {
+test('positive comment delete', async ({ page }) => {
   /* Arrange */
   // Переходим на страницу списка статей
   await page.goto(config.link.baseUrl + routes.ARTICLE.INDEX)
@@ -34,16 +34,13 @@ test('positive comment create', async ({ page }) => {
   await page.getByLabel($t('field.email')).fill(fixtures.article.create.authorEmail)
 
   // Нажимаем кнопку "Сохранить"
-  await page.getByRole('dialog').getByRole('button', { name: $t('action.save') }).click()
+  await page
+    .getByRole('dialog')
+    .getByRole('button', { name: $t('action.save') })
+    .click()
 
   // Переходим на страницу просмотра статьи
   await page.getByRole('link', { name: fixtures.article.create.title }).click()
-
-  // Запоминаем текущее количество комментариев
-  const titleComments = `div:has(span:has-text("${$t('title.comments')}"))`
-  const countComments = Number(
-    await page.locator(titleComments).getByRole('figure').first().innerText(),
-  )
 
   // Заполняем форму комментария
   await expect(page.getByLabel($t('field.title.comment'))).toBeEmpty()
@@ -62,19 +59,36 @@ test('positive comment create', async ({ page }) => {
   await page.getByLabel($t('field.email')).click()
   await page.getByLabel($t('field.email')).fill(fixtures.comment.create.authorEmail)
 
-  /* Act */
   // Нажимаем кнопку "Сохранить"
   await page.getByRole('button', { name: $t('action.save') }).click()
 
-  /* Assert */
-  // В списке комментариев должен быть новый комментарий
-  const comment = page.locator('.q-card').filter({ hasText: fixtures.comment.create.title })
+  // В списке должна быть новый комментарий
+  let comment = page.locator('.q-card').filter({ hasText: fixtures.comment.create.title })
   await expect(comment).toHaveCount(1)
 
-  // Должна быть всплывашка зеленого цвета, что статья добавлена
+  // Запоминаем текущее количество комментариев
+  const titleComments = `div:has(span:has-text("${$t('title.comments')}"))`
+  const countComments = Number(
+    await page.locator(titleComments).getByRole('figure').first().innerText(),
+  )
+
+  /* Act */
+  // У созданного комментария нажимаем кнопку "Удалить"
+  await comment.getByRole('button', { name: $t('action.delete') }).click()
+  await page
+    .getByRole('dialog')
+    .getByRole('button', { name: $t('action.delete') })
+    .click()
+
+  /* Assert */
+  // Проверяем, что созданного комментария больше нет
+  comment = page.locator('.q-card').filter({ hasText: fixtures.comment.create.title })
+  await expect(comment).toHaveCount(0)
+
+  // Должна быть всплывашка зеленого цвета, что комментарий удалена
   const alert = page
     .getByRole('alert')
-    .filter({ hasText: new RegExp($t('message.success.comment.create')) })
+    .filter({ hasText: new RegExp($t('message.success.comment.delete')) })
   await expect(alert).toHaveCount(1)
   await expect(alert).toHaveCSS('background-color', castHexToRgb(colors.POSITIVE))
 
@@ -85,11 +99,11 @@ test('positive comment create', async ({ page }) => {
     articleId = matchUrl[1]
   }
 
-  // Проверяем, что кол-во комментариев на странице стало +1
+  // Проверяем, что кол-во комментариев на странице уменьшилось на 1
   const newCountComments = Number(
     await page.locator(titleComments).getByRole('figure').first().innerText(),
   )
-  expect(newCountComments).toBe(countComments + 1)
+  expect(newCountComments).toBe(countComments - 1)
 
   // Мы должны быть на странице /articles/{id}
   await expect(page).toHaveURL(config.link.baseUrl + routes.ARTICLE.SHOW(articleId))

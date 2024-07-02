@@ -9,6 +9,8 @@ use App\Adapters\Http\Actions\Article\ArticleIndexAction;
 use App\Adapters\Http\Actions\Article\ArticleShowAction;
 use App\Adapters\Http\Actions\Article\ArticleUpdateAction;
 use App\Adapters\Http\Actions\Comment\CommentCreateAction;
+use App\Adapters\Http\Actions\Comment\CommentDeleteAction;
+use App\Adapters\Http\Actions\Comment\CommentUpdateAction;
 use Dotenv\Dotenv;
 use GuzzleHttp\Psr7\ServerRequest;
 use Psr\Container\ContainerInterface;
@@ -36,7 +38,8 @@ $method = $request->getMethod();
 /** @var ResponseInterface $response */
 $response = null;
 
-// routes
+/** routes */
+// articles
 if (preg_match('/^\/api\/articles\/\d+\/get-comments$/', $uri) && $method === 'GET') {
     $response = $container->get(ArticleGetCommentsAction::class)->handle($request);
 } elseif (preg_match('/^\/api\/articles\/\d+$/', $uri) && $method === 'GET') {
@@ -49,6 +52,11 @@ if (preg_match('/^\/api\/articles\/\d+\/get-comments$/', $uri) && $method === 'G
     $response = $container->get(ArticleIndexAction::class)->handle();
 } elseif (preg_match('/^\/api\/articles$/', $uri) && $method === 'POST') {
     $response = $container->get(ArticleCreateAction::class)->handle($request);
+// comments
+} elseif (preg_match('/^\/api\/comments\/\d+$/', $uri) && $method === 'DELETE') {
+    $response = $container->get(CommentDeleteAction::class)->handle($request);
+} elseif (preg_match('/^\/api\/comments\/\d+$/', $uri) && $method === 'PUT') {
+    $response = $container->get(CommentUpdateAction::class)->handle($request);
 } elseif (preg_match('/^\/api\/comments$/', $uri) && $method === 'POST') {
     $response = $container->get(CommentCreateAction::class)->handle($request);
 }

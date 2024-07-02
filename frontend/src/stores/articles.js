@@ -112,7 +112,7 @@ export const useArticlesStore = defineStore('articles', {
       this.form.title = ''
     },
     /**
-     * Очищает выбранную (отображаемую) статью.
+     * Очищает выбранную статью.
      * @returns {void}
      */
     clearSelected() {

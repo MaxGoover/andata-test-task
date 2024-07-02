@@ -15,7 +15,7 @@
       :isShowed="articles.isShowedCreateModal"
     />
 
-    <!--Модальное окно добавления статьи-->
+    <!--Модальное окно удаления статьи-->
     <ArticlesDeleteModal
       :hideModal="articles.hideDeleteModal"
       :isShowed="articles.isShowedDeleteModal"
@@ -23,21 +23,47 @@
 
     <!--Модальное окно редактирования статьи-->
     <ArticlesUpdateModal
-      :hideModal="articles.hideUpdateModal"
+      :hideModal="hideArticleUpdateModal"
       :isShowed="articles.isShowedUpdateModal"
+    />
+
+    <!--Модальное окно удаления комментария-->
+    <CommentsDeleteModal
+      :hideModal="comments.hideDeleteModal"
+      :isShowed="comments.isShowedDeleteModal"
+    />
+
+    <!--Модальное окно редактирования комментария-->
+    <CommentsUpdateModal
+      :hideModal="hideCommentUpdateModal"
+      :isShowed="comments.isShowedUpdateModal"
     />
   </div>
 </template>
 
 <script setup>
 import { useArticlesStore } from 'stores/articles'
+import { useCommentsStore } from 'stores/comments'
 import ArticlesCreateModal from 'components/articles/ArticlesCreateModal.vue'
 import ArticlesDeleteModal from 'components/articles/ArticlesDeleteModal.vue'
 import ArticlesUpdateModal from 'components/articles/ArticlesUpdateModal.vue'
+import CommentsDeleteModal from 'components/comments/CommentsDeleteModal.vue'
+import CommentsUpdateModal from 'components/comments/CommentsUpdateModal.vue'
 import BlogFooter from 'components/blog/BlogFooter.vue'
 import BlogHeader from 'components/blog/BlogHeader.vue'
 
 const articles = useArticlesStore()
+const comments = useCommentsStore()
+
+const hideArticleUpdateModal = () => {
+  articles.clearForm()
+  articles.hideUpdateModal()
+}
+
+const hideCommentUpdateModal = () => {
+  comments.clearForm()
+  comments.hideUpdateModal()
+}
 </script>
 
 <style lang="sass" scoped>

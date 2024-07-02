@@ -34,7 +34,7 @@
           v-model="form.content"
           class="full-width"
           :label="$t('field.title.comment')"
-          :placeholder="$t('field.text.article')"
+          :placeholder="$t('field.text.comment')"
           :style="v$.content.$error ? 'border-color: var(--q-negative)' : ''"
           :toolbar="config.editor.toolbar"
         />
