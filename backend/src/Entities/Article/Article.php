@@ -6,6 +6,11 @@ namespace App\Entities\Article;
 
 final class Article
 {
+    const AUTHOR_USERNAME = 'author_username';
+    const AUTHOR_EMAIL = 'author_email';
+    const TITLE = 'title';
+    const CONTENT = 'content';
+
     public function __construct(
         public AuthorUsername $author_username,
         public AuthorEmail $author_email,

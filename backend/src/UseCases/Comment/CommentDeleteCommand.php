@@ -13,7 +13,7 @@ final readonly class CommentDeleteCommand
     ) {
     }
 
-    public function handle(int $id)
+    public function handle(int $id): bool
     {
         return $this->comments->delete($id);
     }

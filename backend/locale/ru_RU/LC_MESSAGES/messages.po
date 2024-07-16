@@ -1,0 +1,61 @@
+# message_error_article
+msgid "message_error_article_create" 
+msgstr "Не удалось сохранить статью"
+
+msgid "message_error_article_delete" 
+msgstr "Не удалось удалить статью"
+
+msgid "message_error_article_get_comments" 
+msgstr "Не удалось получить комментарии статьи" 
+ 
+msgid "message_error_article_index" 
+msgstr "Не удалось получить список статей" 
+ 
+msgid "message_error_article_show" 
+msgstr "Не удалось получить статью" 
+ 
+msgid "message_error_article_update" 
+msgstr "Не удалось сохранить изменения в статье"
+
+# message_error_comment
+msgid "message_error_comment_create" 
+msgstr "Не удалось сохранить комментарий" 
+ 
+msgid "message_error_comment_delete" 
+msgstr "Не удалось удалить комментарий" 
+ 
+msgid "message_error_comment_update" 
+msgstr "Не удалось отредактировать комментарий" 
+
+# message_success_article
+msgid "message_success_article_create" 
+msgstr "Статья добавлена успешно"
+
+msgid "message_success_article_delete" 
+msgstr "Статья удалена успешно" 
+
+msgid "message_success_article_get_comments"
+msgstr "Комментарии статьи получены успешно" 
+
+msgid "message_success_article_index"
+msgstr "Статьи получены успешно" 
+
+msgid "message_success_article_show"
+msgstr "Статья получена успешно" 
+
+msgid "message_success_article_update" 
+msgstr "Статья отредактирована успешно" 
+
+# message_success_comment
+msgid "message_success_comment_create" 
+msgstr "Комментарий сохранен успешно" 
+ 
+msgid "message_success_comment_delete" 
+msgstr "Комментарий удален успешно" 
+ 
+msgid "message_success_comment_update" 
+msgstr "Комментарий отредактирован успешно"
+
+# message_validation
+msgid "message_validation_error" 
+msgstr "Ошибка валидации" 

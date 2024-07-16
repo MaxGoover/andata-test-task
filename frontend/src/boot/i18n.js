@@ -15,4 +15,5 @@ export default boot(({ app }) => {
 
 const $t = i18n.global.t
 
+export { i18n }
 export { $t }

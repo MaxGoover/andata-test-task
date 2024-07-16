@@ -13,7 +13,7 @@ final readonly class ArticleDeleteCommand
     ) {
     }
 
-    public function handle(int $id)
+    public function handle(int $id): bool
     {
         return $this->articles->delete($id);
     }

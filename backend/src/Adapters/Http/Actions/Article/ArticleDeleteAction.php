@@ -23,12 +23,12 @@ final readonly class ArticleDeleteAction
             $articleId = self::getArticleId($request);
 
             return new JsonResponse([
-                'article' => $this->articleDeleteCommand->handle($articleId),
-                'message' => 'Article deleted successfully',
+                'isDeleted' => $this->articleDeleteCommand->handle($articleId),
+                'message' => _('message_success_article_delete'),
             ]);
         } catch (Exception $e) {
             return new JsonResponse([
-                'message'  => $e->getMessage(),
+                'message'  => _('message_error_article_delete'),
             ], 400);
         }
     }

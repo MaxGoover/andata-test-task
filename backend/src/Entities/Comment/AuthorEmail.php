@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entities\Comment;
 
+use App\Infrastructure\Rules\CommonRules;
 use Webmozart\Assert\Assert;
 
 final readonly class AuthorEmail
@@ -14,7 +15,7 @@ final readonly class AuthorEmail
     {
         Assert::notEmpty($value);
         Assert::email($value);
-        Assert::maxLength($value, 320);
+        Assert::maxLength($value, CommonRules::EMAIL_MAX_LENGTH);
         $this->value = mb_strtolower($value);
     }
 

@@ -13,7 +13,7 @@ final readonly class ArticleIndexCommand
     ) {
     }
 
-    public function handle()
+    public function handle(): array
     {
         return $this->articles->index();
     }

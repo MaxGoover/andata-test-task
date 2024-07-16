@@ -23,12 +23,12 @@ final readonly class CommentDeleteAction
             $commentId = self::getCommentId($request);
 
             return new JsonResponse([
-                'comment' => $this->commentDeleteCommand->handle($commentId),
-                'message' => 'Comment deleted successfully',
+                'isDeleted' => $this->commentDeleteCommand->handle($commentId),
+                'message' => _('message_success_comment_delete'),
             ]);
         } catch (Exception $e) {
             return new JsonResponse([
-                'message'  => $e->getMessage(),
+                'message'  => _('message_error_comment_delete'),
             ], 400);
         }
     }

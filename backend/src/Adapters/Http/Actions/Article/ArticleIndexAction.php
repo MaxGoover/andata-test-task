@@ -21,11 +21,11 @@ final readonly class ArticleIndexAction
         try {
             return new JsonResponse([
                 'articles' => $this->articleIndexCommand->handle(),
-                'message'  => 'Articles indexed successfully',
+                'message' => _('message_success_article_index'),
             ]);
-        } catch (Exception $e) {
+        } catch (Exception) {
             return new JsonResponse([
-                'message'  => $e->getMessage(),
+                'message' => _('message.error.article.index'),
             ], 400);
         }
     }

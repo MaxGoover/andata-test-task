@@ -41,12 +41,12 @@ final readonly class ArticleCreateAction
             );
 
             return new JsonResponse([
-                'article' => $this->articleCreateCommand->handle($article),
-                'message' => 'Article created successfully',
+                'articleId' => $this->articleCreateCommand->handle($article),
+                'message'   => _('message_success_article_create'),
             ]);
         } catch (Exception $e) {
             return new JsonResponse([
-                'message'  => $e->getMessage(),
+                'message' => _('message_error_article_create'),
             ], 400);
         }
     }

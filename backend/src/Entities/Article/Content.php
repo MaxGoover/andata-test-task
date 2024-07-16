@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entities\Article;
 
+use App\Infrastructure\Rules\ArticleRules;
 use Webmozart\Assert\Assert;
 
 final readonly class Content
@@ -13,8 +14,8 @@ final readonly class Content
     public function __construct(string $value)
     {
         Assert::notEmpty($value);
-        Assert::minLength($value, 3);
-        Assert::maxLength($value, 10000);
+        Assert::minLength($value, ArticleRules::CONTENT_MIN_LENGTH);
+        Assert::maxLength($value, ArticleRules::CONTENT_MAX_LENGTH);
         $this->value = $value;
     }
 

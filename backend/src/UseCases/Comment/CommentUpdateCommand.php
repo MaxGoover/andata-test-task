@@ -14,7 +14,7 @@ final readonly class CommentUpdateCommand
     ) {
     }
 
-    public function handle(Comment $comment, int $id)
+    public function handle(Comment $comment, int $id): bool
     {
         return $this->comments->update($comment, $id);
     }

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Entities\Comment;
 
+use App\Infrastructure\Rules\CommentRules;
+use App\Infrastructure\Rules\CommonRules;
 use Webmozart\Assert\Assert;
 
 final readonly class Content
@@ -13,8 +15,8 @@ final readonly class Content
     public function __construct(string $value)
     {
         Assert::notEmpty($value);
-        Assert::minLength($value, 3);
-        Assert::maxLength($value, 10000);
+        Assert::minLength($value, CommentRules::CONTENT_MIN_LENGTH);
+        Assert::maxLength($value, CommentRules::CONTENT_MAX_LENGTH);
         $this->value = $value;
     }
 

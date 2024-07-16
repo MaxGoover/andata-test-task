@@ -43,12 +43,12 @@ final readonly class ArticleUpdateAction
             );
 
             return new JsonResponse([
-                'article' => $this->articleUpdateCommand->handle($article, $articleId),
-                'message' => 'Article updated successfully',
+                'isUpdated' => $this->articleUpdateCommand->handle($article, $articleId),
+                'message' => _('message_success_article_update'),
             ]);
         } catch (Exception $e) {
             return new JsonResponse([
-                'message'  => $e->getMessage(),
+                'message'  => _('message_error_article_update'),
             ], 400);
         }
     }

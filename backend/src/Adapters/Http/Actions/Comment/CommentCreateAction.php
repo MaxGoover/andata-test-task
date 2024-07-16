@@ -43,12 +43,12 @@ final class CommentCreateAction
             );
 
             return new JsonResponse([
-                'comment' => $this->commentCreateCommand->handle($comment),
-                'message' => 'Comment created successfully',
+                'commentId' => $this->commentCreateCommand->handle($comment),
+                'message' => _('message_success_comment_create'),
             ]);
         } catch (Exception $e) {
             return new JsonResponse([
-                'message'  => $e->getMessage(),
+                'message'  => _('message_error_comment_create'),
             ], 400);
         }
     }

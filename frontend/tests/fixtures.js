@@ -2,30 +2,30 @@
 export default {
   article: {
     create: {
-      authorEmail: 'maxgoover@gmail.com',
-      authorUsername: 'MaxGoover',
-      content: 'Тестовое содержание тестовой статьи',
-      title: 'Тестовый заголовок тестовой статьи',
+      authorEmail: 'frontend_maxgoover@gmail.com',
+      authorUsername: 'FrontMaxGoover',
+      content: 'Фронт - Тестовое содержание тестовой статьи',
+      title: 'Фронт - Тестовый заголовок тестовой статьи',
     },
     update: {
-      authorEmail: 'another_maxgoover@gmail.com',
-      authorUsername: 'AnotherMaxGoover',
-      content: 'Измененное содержание тестовой статьи',
-      title: 'Измененный заголовок тестовой статьи',
+      authorEmail: 'frontend_another_maxgoover@gmail.com',
+      authorUsername: 'FrontAnotherMaxGoover',
+      content: 'Фронт - Измененное содержание тестовой статьи',
+      title: 'Фронт - Измененный заголовок тестовой статьи',
     },
   },
   comment: {
     create: {
-      authorEmail: 'maxgoover@gmail.com',
-      authorUsername: 'MaxGoover',
-      content: 'Тестовое содержание тестового комментария',
-      title: 'Тестовый заголовок тестового комментария',
+      authorEmail: 'frontend_maxgoover@gmail.com',
+      authorUsername: 'FrontMaxGoover',
+      content: 'Фронт - Тестовое содержание тестового комментария',
+      title: 'Фронт - Тестовый заголовок тестового комментария',
     },
     update: {
-      authorEmail: 'another_maxgoover@gmail.com',
-      authorUsername: 'AnotherMaxGoover',
-      content: 'Измененное содержание тестового комментария',
-      title: 'Измененный заголовок тестового комментария',
+      authorEmail: 'frontend_another_maxgoover@gmail.com',
+      authorUsername: 'FrontAnotherMaxGoover',
+      content: 'Фронт - Измененное содержание тестового комментария',
+      title: 'Фронт - Измененный заголовок тестового комментария',
     },
   },
 }

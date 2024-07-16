@@ -16,29 +16,20 @@ use Psr\Container\ContainerInterface;
 
 return [
     CommentRepositoryInterface::class => function (ContainerInterface $container) {
-        return new CommentRepository($container->get('pdo'));
+        return new CommentRepository($container->get(PDO::class));
     },
 
     // create
-    CommentCreateCommand::class => function (ContainerInterface $container) {
-        return new CommentCreateCommand($container->get(CommentRepositoryInterface::class));
-    },
     CommentCreateAction::class => function (ContainerInterface $container) {
         return new CommentCreateAction($container->get(CommentCreateCommand::class));
     },
 
     // delete
-    CommentDeleteCommand::class => function (ContainerInterface $container) {
-        return new CommentDeleteCommand($container->get(CommentRepositoryInterface::class));
-    },
     CommentDeleteAction::class => function (ContainerInterface $container) {
         return new CommentDeleteAction($container->get(CommentDeleteCommand::class));
     },
 
     // update
-    CommentUpdateCommand::class => function (ContainerInterface $container) {
-        return new CommentUpdateCommand($container->get(CommentRepositoryInterface::class));
-    },
     CommentUpdateAction::class => function (ContainerInterface $container) {
         return new CommentUpdateAction($container->get(CommentUpdateCommand::class));
     },

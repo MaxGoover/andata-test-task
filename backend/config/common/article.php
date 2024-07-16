@@ -21,21 +21,15 @@ use Psr\Container\ContainerInterface;
 
 return [
     ArticleRepositoryInterface::class => function (ContainerInterface $container) {
-        return new ArticleRepository($container->get('pdo'));
+        return new ArticleRepository($container->get(PDO::class));
     },
 
     // create
-    ArticleCreateCommand::class => function (ContainerInterface $container) {
-        return new ArticleCreateCommand($container->get(ArticleRepositoryInterface::class));
-    },
     ArticleCreateAction::class => function (ContainerInterface $container) {
         return new ArticleCreateAction($container->get(ArticleCreateCommand::class));
     },
 
     // delete
-    ArticleDeleteCommand::class => function (ContainerInterface $container) {
-        return new ArticleDeleteCommand($container->get(ArticleRepositoryInterface::class));
-    },
     ArticleDeleteAction::class => function (ContainerInterface $container) {
         return new ArticleDeleteAction($container->get(ArticleDeleteCommand::class));
     },
@@ -49,17 +43,11 @@ return [
     },
 
     // index
-    ArticleIndexCommand::class => function (ContainerInterface $container) {
-        return new ArticleIndexCommand($container->get(ArticleRepositoryInterface::class));
-    },
     ArticleIndexAction::class => function (ContainerInterface $container) {
         return new ArticleIndexAction($container->get(ArticleIndexCommand::class));
     },
 
     // show
-    ArticleShowCommand::class => function (ContainerInterface $container) {
-        return new ArticleShowCommand($container->get(ArticleRepositoryInterface::class));
-    },
     ArticleShowAction::class => function (ContainerInterface $container) {
         return new ArticleShowAction(
             $container->get(ArticleShowCommand::class),
@@ -69,9 +57,6 @@ return [
     },
 
     // update
-    ArticleUpdateCommand::class => function (ContainerInterface $container) {
-        return new ArticleUpdateCommand($container->get(ArticleRepositoryInterface::class));
-    },
     ArticleUpdateAction::class => function (ContainerInterface $container) {
         return new ArticleUpdateAction($container->get(ArticleUpdateCommand::class));
     },

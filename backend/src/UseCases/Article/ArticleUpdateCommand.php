@@ -14,7 +14,7 @@ final readonly class ArticleUpdateCommand
     ) {
     }
 
-    public function handle(Article $article, int $articleId)
+    public function handle(Article $article, int $articleId): bool
     {
         return $this->articles->update($article, $articleId);
     }

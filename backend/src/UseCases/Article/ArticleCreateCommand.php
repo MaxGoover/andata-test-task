@@ -14,7 +14,7 @@ final readonly class ArticleCreateCommand
     ) {
     }
 
-    public function handle(Article $article)
+    public function handle(Article $article): string|false
     {
         return $this->articles->create($article);
     }

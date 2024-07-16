@@ -27,11 +27,11 @@ final readonly class ArticleGetCommentsAction
             return new JsonResponse([
                 'comments'      => $this->commentGetByArticleIdCommand->handle($articleId),
                 'countComments' => $this->commentGetCountByArticleIdCommand->handle($articleId),
-                'message'       => 'Article comments gotten successfully',
+                'message'       => _('message_success_article_get_comments'),
             ]);
         } catch (Exception $e) {
             return new JsonResponse([
-                'message'  => $e->getMessage(),
+                'message'  => _('message_error_article_get_comments'),
             ], 400);
         }
     }

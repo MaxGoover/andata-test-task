@@ -6,9 +6,14 @@ WORKDIR /var/www/api/
 
 RUN apt-get update && apt-get install -y \
     git \
-    curl
+    curl \
+    zip \
+    unzip \
+    locales \
+    locales-all
 
-RUN docker-php-ext-install pdo_mysql
+RUN docker-php-ext-install pdo_mysql \
+    gettext
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 

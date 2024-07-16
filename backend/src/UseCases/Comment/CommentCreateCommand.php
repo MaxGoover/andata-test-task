@@ -14,7 +14,7 @@ final class CommentCreateCommand
     ) {
     }
 
-    public function handle(Comment $comment)
+    public function handle(Comment $comment): string|false
     {
         return $this->comments->create($comment);
     }

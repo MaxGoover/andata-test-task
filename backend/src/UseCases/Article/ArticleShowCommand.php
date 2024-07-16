@@ -13,7 +13,7 @@ final readonly class ArticleShowCommand
     ) {
     }
 
-    public function handle(int $id)
+    public function handle(int $id): array
     {
         return $this->articles->getById($id);
     }

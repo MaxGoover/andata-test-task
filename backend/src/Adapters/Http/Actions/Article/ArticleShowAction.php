@@ -30,11 +30,11 @@ final readonly class ArticleShowAction
                 'article'       => $this->articleShowCommand->handle($articleId),
                 'comments'      => $this->commentGetByArticleIdCommand->handle($articleId),
                 'countComments' => $this->commentGetCountByArticleIdCommand->handle($articleId),
-                'message'       => 'Article showed successfully',
+                'message'       => _('message_success_article_show'),
             ]);
         } catch (Exception $e) {
             return new JsonResponse([
-                'message'  => $e->getMessage(),
+                'message'  => _('message_error_article_show'),
             ], 400);
         }
     }

@@ -24,6 +24,9 @@ return [
                 'maxLength' => 100,
             ],
         ],
+        'date' => [
+            'format' => 'Y-m-d H:i:s',
+        ],
         'email' => [
             'maxLength' => 320,
         ],

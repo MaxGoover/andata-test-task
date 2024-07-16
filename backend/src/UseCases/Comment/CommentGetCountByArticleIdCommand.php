@@ -13,7 +13,7 @@ final readonly class CommentGetCountByArticleIdCommand
     ) {
     }
 
-    public function handle(int $id)
+    public function handle(int $id): int
     {
         return $this->comments->getCountByArticleId($id);
     }

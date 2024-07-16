@@ -45,12 +45,12 @@ final readonly class CommentUpdateAction
             );
 
             return new JsonResponse([
-                'article' => $this->commentUpdateCommand->handle($comment, $commentId),
-                'message' => 'Comment updated successfully',
+                'isUpdated' => $this->commentUpdateCommand->handle($comment, $commentId),
+                'message' => _('message_success_comment_update'),
             ]);
         } catch (Exception $e) {
             return new JsonResponse([
-                'message'  => $e->getMessage(),
+                'message'  => _('message_error_comment_update'),
             ], 400);
         }
     }

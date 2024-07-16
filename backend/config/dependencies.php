@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
+$pathSrc = realpath($_SERVER["DOCUMENT_ROOT"]);
+
 $files = array_merge(
-    glob(__DIR__ . '/common/*.php') ?: [],
-    glob(__DIR__ . '/settings/*.php') ?: [],
+    glob($pathSrc . '/config/common/*.php') ?: [],
+    glob($pathSrc . '/config/settings/*.php') ?: [],
 );
 
 $configs = array_map(
