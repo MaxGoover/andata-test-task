@@ -32,6 +32,7 @@ class CommentNegativeTest extends TestCaseFeature
     public function tearDown(): void
     {
         $this->testCreateCommentFailed();
+        $this->testDeleteArticleSuccess();
     }
 
     private function testCreateArticleSuccess()
@@ -48,6 +49,18 @@ class CommentNegativeTest extends TestCaseFeature
         $this->assertIsString($responseData['articleId']);
         $this->assertSame('Статья добавлена успешно', $responseData['message']);
         $this->articleId = (int)$responseData['articleId'];
+    }
+
+    private function testDeleteArticleSuccess()
+    {
+        /** @var ResponseInterface $response */
+        $response = $this->sendAjax('DELETE', "http://localhost/api/articles/$this->articleId");
+        $this->assertSame(200, $response->getStatusCode());
+
+        /** @var array $responseData */
+        $responseData = json_decode($response->getBody()->getContents(), true);
+        $this->assertTrue($responseData['isDeleted']);
+        $this->assertSame('Статья удалена успешно', $responseData['message']);
     }
 
     public function testCreateTitleRequiredFailed()

@@ -2,15 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Adapters\Http\Actions\Article\ArticleCreateAction;
-use App\Adapters\Http\Actions\Article\ArticleDeleteAction;
-use App\Adapters\Http\Actions\Article\ArticleGetCommentsAction;
-use App\Adapters\Http\Actions\Article\ArticleIndexAction;
-use App\Adapters\Http\Actions\Article\ArticleShowAction;
-use App\Adapters\Http\Actions\Article\ArticleUpdateAction;
-use App\Adapters\Http\Actions\Comment\CommentCreateAction;
-use App\Adapters\Http\Actions\Comment\CommentDeleteAction;
-use App\Adapters\Http\Actions\Comment\CommentUpdateAction;
+use App\Infrastructure\Routes;
 use Dotenv\Dotenv;
 use GuzzleHttp\Psr7\ServerRequest;
 use Psr\Container\ContainerInterface;
@@ -32,7 +24,7 @@ if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
 setlocale(LC_ALL, $lang);
 $domain = 'messages';
 textdomain($domain);
-bindtextdomain($domain, "locale");
+bindtextdomain($domain, "src/Infrastructure/Locale");
 bind_textdomain_codeset($domain, 'UTF-8');
 
 /** @var ContainerInterface $container */
@@ -41,37 +33,11 @@ $container = require_once __DIR__ . '/config/container.php';
 /** @var RequestInterface $request */
 $request = ServerRequest::fromGlobals();
 
-/** @var string $uri */
-$uri = $request->getUri()->getPath();
-
-/** @var string $method */
-$method = $request->getMethod();
+/** @var Routes $routes */
+$routes = new Routes($container);
 
 /** @var ResponseInterface $response */
-$response = null;
-
-/** routes */
-// articles
-if (preg_match('/^\/api\/articles\/\d+\/get-comments$/', $uri) && $method === 'GET') {
-    $response = $container->get(ArticleGetCommentsAction::class)->handle($request);
-} elseif (preg_match('/^\/api\/articles\/\d+$/', $uri) && $method === 'GET') {
-    $response = $container->get(ArticleShowAction::class)->handle($request);
-} elseif (preg_match('/^\/api\/articles\/\d+$/', $uri) && $method === 'DELETE') {
-    $response = $container->get(ArticleDeleteAction::class)->handle($request);
-} elseif (preg_match('/^\/api\/articles\/\d+$/', $uri) && $method === 'PUT') {
-    $response = $container->get(ArticleUpdateAction::class)->handle($request);
-} elseif (preg_match('/^\/api\/articles$/', $uri) && $method === 'GET') {
-    $response = $container->get(ArticleIndexAction::class)->handle();
-} elseif (preg_match('/^\/api\/articles$/', $uri) && $method === 'POST') {
-    $response = $container->get(ArticleCreateAction::class)->handle($request);
-    // comments
-} elseif (preg_match('/^\/api\/comments\/\d+$/', $uri) && $method === 'DELETE') {
-    $response = $container->get(CommentDeleteAction::class)->handle($request);
-} elseif (preg_match('/^\/api\/comments\/\d+$/', $uri) && $method === 'PUT') {
-    $response = $container->get(CommentUpdateAction::class)->handle($request);
-} elseif (preg_match('/^\/api\/comments$/', $uri) && $method === 'POST') {
-    $response = $container->get(CommentCreateAction::class)->handle($request);
-}
+$response = $routes->action($request);
 
 // response
 header('Content-Type: application/json');
