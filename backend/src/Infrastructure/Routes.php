@@ -4,22 +4,26 @@ declare(strict_types=1);
 
 namespace App\Infrastructure;
 
+use Exception;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
 final readonly class Routes
 {
-    public array $api;
+    public array $list;
     private ContainerInterface $container;
 
     public function __construct(ContainerInterface $container)
     {
         $routes = json_decode(file_get_contents(__DIR__ . '/../../routes.json'), true);
-        $this->api = $routes['api'];
+        $this->list = self::normalizeRoute($routes);
         $this->container = $container;
     }
 
+    /**
+     * Вызывает экшн, который соответствует данному запросу.
+     */
     public function action(RequestInterface $request): ResponseInterface
     {
         /** @var string $method */
@@ -28,11 +32,45 @@ final readonly class Routes
         /** @var string $uri */
         $uri = self::normalizeUri($request->getUri()->getPath());
 
-        $action = array_search(['method' => $method, 'uri' => $uri], $this->api);
-        return $this->container->get($action)->handle($request);
+        /** @var Route $route */
+        $route = $this->getRouteByMethodAndUri($method, $uri);
+
+        return $this->container->get($route->namespace)->handle($request);
     }
 
-    private static function normalizeUri(string $uri): string {
+    /**
+     * Получает роут маршрута.
+     */
+    private function getRouteByMethodAndUri(string $method, string $uri): Route
+    {
+        try {
+            /** @var Route $route */
+            foreach ($this->list as $route) {
+                if ($route->method === $method && $route->uri === $uri) {
+                    return $route;
+                }
+            }
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    /**
+     * Форматирует роуты из JSON-файла в массив роутов Route[].
+     */
+    private static function normalizeRoute(array $routes): array
+    {
+        return array_map(function ($route) {
+            return new Route($route['method'], $route['namespace'], $route['uri']);
+        }, $routes);
+    }
+
+    /**
+     * Форматирует uri в маршрут роута.
+     * Например: '/api/articles/13' -> '/api/articles/{id}'
+     */
+    private static function normalizeUri(string $uri): string
+    {
         $uriParts = preg_split('/\//', $uri);
         array_shift($uriParts);
 

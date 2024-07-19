@@ -36,7 +36,7 @@ class CommentPositiveTest extends TestCaseFeature
         $this->fixtureArticle->create();
 
         /** @var ResponseInterface $response */
-        $response = $this->sendAjax('POST', 'http://localhost/api/articles', (array)$this->fixtureArticle);
+        $response = $this->sendAjax('POST', '/api/articles', (array)$this->fixtureArticle);
         $this->assertSame(200, $response->getStatusCode());
         $this->assertSame('application/json', $response->getHeader('Content-Type')[0]);
 
@@ -50,7 +50,7 @@ class CommentPositiveTest extends TestCaseFeature
     private function testDeleteArticleSuccess()
     {
         /** @var ResponseInterface $response */
-        $response = $this->sendAjax('DELETE', "http://localhost/api/articles/$this->articleId");
+        $response = $this->sendAjax('DELETE', "/api/articles/$this->articleId");
         $this->assertSame(200, $response->getStatusCode());
 
         /** @var array $responseData */
@@ -65,7 +65,7 @@ class CommentPositiveTest extends TestCaseFeature
         $this->fixtureComment->article_id = $this->articleId;
 
         /** @var ResponseInterface $response */
-        $response = $this->sendAjax('POST', "http://localhost/api/comments", (array)$this->fixtureComment);
+        $response = $this->sendAjax('POST', "/api/comments", (array)$this->fixtureComment);
         $this->assertSame(200, $response->getStatusCode());
         $this->assertSame('application/json', $response->getHeader('Content-Type')[0]);
 
@@ -82,7 +82,7 @@ class CommentPositiveTest extends TestCaseFeature
         $this->fixtureComment->article_id = $this->articleId;
 
         /** @var ResponseInterface $response */
-        $response = $this->sendAjax('PUT', "http://localhost/api/comments/$this->commentId", (array)$this->fixtureComment);
+        $response = $this->sendAjax('PUT', "/api/comments/$this->commentId", (array)$this->fixtureComment);
 
         $this->assertSame(200, $response->getStatusCode());
         $this->assertSame('application/json', $response->getHeader('Content-Type')[0]);
@@ -96,7 +96,7 @@ class CommentPositiveTest extends TestCaseFeature
     public function testDeleteSuccess()
     {
         /** @var ResponseInterface $response */
-        $response = $this->sendAjax('DELETE', "http://localhost/api/comments/$this->commentId");
+        $response = $this->sendAjax('DELETE', "/api/comments/$this->commentId");
         $this->assertSame(200, $response->getStatusCode());
 
         /** @var array $responseData */

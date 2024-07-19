@@ -31,7 +31,7 @@ class ArticlePositiveTest extends TestCaseFeature
         $this->fixtureArticle->create();
 
         /** @var ResponseInterface $response */
-        $response = $this->sendAjax('POST', 'http://localhost/api/articles', (array)$this->fixtureArticle);
+        $response = $this->sendAjax('POST', '/api/articles', (array)$this->fixtureArticle);
         $this->assertSame(200, $response->getStatusCode());
         $this->assertSame('application/json', $response->getHeader('Content-Type')[0]);
 
@@ -45,7 +45,7 @@ class ArticlePositiveTest extends TestCaseFeature
     private function testDeleteSuccess()
     {
         /** @var ResponseInterface $response */
-        $response = $this->sendAjax('DELETE', "http://localhost/api/articles/$this->articleId");
+        $response = $this->sendAjax('DELETE', "/api/articles/$this->articleId");
         $this->assertSame(200, $response->getStatusCode());
 
         /** @var array $responseData */
@@ -57,7 +57,7 @@ class ArticlePositiveTest extends TestCaseFeature
     public function testGetCommentsSuccess()
     {
         /** @var ResponseInterface $response */
-        $response = $this->sendAjax('GET', "http://localhost/api/articles/$this->articleId/get-comments");
+        $response = $this->sendAjax('GET', "/api/articles/$this->articleId/get-comments");
         $this->assertSame(200, $response->getStatusCode());
         $this->assertSame('application/json', $response->getHeader('Content-Type')[0]);
 
@@ -71,7 +71,7 @@ class ArticlePositiveTest extends TestCaseFeature
     public function testIndexSuccess()
     {
         /** @var ResponseInterface $response */
-        $response = $this->sendAjax('GET', 'http://localhost/api/articles');
+        $response = $this->sendAjax('GET', '/api/articles');
 
         $this->assertSame(200, $response->getStatusCode());
         $this->assertSame('application/json', $response->getHeader('Content-Type')[0]);
@@ -85,7 +85,7 @@ class ArticlePositiveTest extends TestCaseFeature
     public function testShowSuccess()
     {
         /** @var ResponseInterface $response */
-        $response = $this->sendAjax('GET', "http://localhost/api/articles/$this->articleId");
+        $response = $this->sendAjax('GET', "/api/articles/$this->articleId");
         $this->assertSame(200, $response->getStatusCode());
         $this->assertSame('application/json', $response->getHeader('Content-Type')[0]);
 
@@ -102,7 +102,7 @@ class ArticlePositiveTest extends TestCaseFeature
         $this->fixtureArticle->update();
 
         /** @var ResponseInterface $response */
-        $response = $this->sendAjax('PUT', "http://localhost/api/articles/$this->articleId", (array)$this->fixtureArticle);
+        $response = $this->sendAjax('PUT', "/api/articles/$this->articleId", (array)$this->fixtureArticle);
         $this->assertSame(200, $response->getStatusCode());
         $this->assertSame('application/json', $response->getHeader('Content-Type')[0]);
 

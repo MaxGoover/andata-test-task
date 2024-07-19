@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Adapters\Http\Actions\Article;
 
-use App\Infrastructure\Helpers;
+use App\Infrastructure\Helper;
 use App\Infrastructure\Rules\ArticleRules;
 use App\Infrastructure\Rules\CommonRules;
 use GuzzleHttp\Exception\ClientException;
@@ -35,12 +35,12 @@ class ArticleNegativeTest extends TestCaseFeature
 
     public function testCreateTitleMinLengthFailed()
     {
-        $this->fixtureArticle->title = Helpers::generateString(ArticleRules::TITLE_MIN_LENGTH - 1);
+        $this->fixtureArticle->title = Helper::generateString(ArticleRules::TITLE_MIN_LENGTH - 1);
     }
 
     public function testCreateTitleMaxLengthFailed()
     {
-        $this->fixtureArticle->title = Helpers::generateString(ArticleRules::TITLE_MAX_LENGTH + 1);
+        $this->fixtureArticle->title = Helper::generateString(ArticleRules::TITLE_MAX_LENGTH + 1);
     }
 
     public function testCreateContentRequiredFailed()
@@ -50,12 +50,12 @@ class ArticleNegativeTest extends TestCaseFeature
 
     public function testCreateContentMinLengthFailed()
     {
-        $this->fixtureArticle->content = Helpers::generateString(ArticleRules::CONTENT_MIN_LENGTH - 1);
+        $this->fixtureArticle->content = Helper::generateString(ArticleRules::CONTENT_MIN_LENGTH - 1);
     }
 
     public function testCreateContentMaxLengthFailed()
     {
-        $this->fixtureArticle->content = Helpers::generateString(ArticleRules::CONTENT_MAX_LENGTH + 1);
+        $this->fixtureArticle->content = Helper::generateString(ArticleRules::CONTENT_MAX_LENGTH + 1);
     }
 
     public function testCreateAuthorUsernameRequiredFailed()
@@ -65,12 +65,12 @@ class ArticleNegativeTest extends TestCaseFeature
 
     public function testCreateAuthorUsernameMinLengthFailed()
     {
-        $this->fixtureArticle->author_username = Helpers::generateString(CommonRules::USERNAME_MIN_LENGTH - 1);
+        $this->fixtureArticle->author_username = Helper::generateString(CommonRules::USERNAME_MIN_LENGTH - 1);
     }
 
     public function testCreateAuthorUsernameMaxLengthFailed()
     {
-        $this->fixtureArticle->author_username = Helpers::generateString(CommonRules::USERNAME_MAX_LENGTH + 1);
+        $this->fixtureArticle->author_username = Helper::generateString(CommonRules::USERNAME_MAX_LENGTH + 1);
     }
 
     public function testCreateAuthorEmailRequiredFailed()
@@ -85,13 +85,13 @@ class ArticleNegativeTest extends TestCaseFeature
 
     public function testCreateAuthorEmailMaxLengthFailed()
     {
-        $this->fixtureArticle->author_email = Helpers::generateString(CommonRules::USERNAME_MAX_LENGTH + 1);
+        $this->fixtureArticle->author_email = Helper::generateString(CommonRules::USERNAME_MAX_LENGTH + 1);
     }
 
     private function testCreateFailed()
     {
         try {
-            $this->sendAjax('POST', 'http://localhost/api/articles', (array)$this->fixtureArticle);
+            $this->sendAjax('POST', '/api/articles', (array)$this->fixtureArticle);
             $this->fail();
         } catch (ClientException $e) {
             $this->assertSame(400, $e->getResponse()->getStatusCode());

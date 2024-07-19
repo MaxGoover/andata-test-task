@@ -1,40 +1,47 @@
 {
-  "api": {
-    "App\\Adapters\\Http\\Actions\\Article\\ArticleCreateAction": {
-      "method": "POST",
-      "uri": "/api/articles"
-    },
-    "App\\Adapters\\Http\\Actions\\Article\\ArticleDeleteAction": {
-      "method": "DELETE",
-      "uri": "/api/articles/{id}"
-    },
-    "App\\Adapters\\Http\\Actions\\Article\\ArticleGetCommentsAction": {
-      "method": "GET",
-      "uri": "/api/articles/{id}/get-comments"
-    },
-    "App\\Adapters\\Http\\Actions\\Article\\ArticleIndexAction": {
-      "method": "GET",
-      "uri": "/api/articles"
-    },
-    "App\\Adapters\\Http\\Actions\\Article\\ArticleShowAction": {
-      "method": "GET",
-      "uri": "/api/articles/{id}"
-    },
-    "App\\Adapters\\Http\\Actions\\Article\\ArticleUpdateAction": {
-      "method": "PUT",
-      "uri": "/api/articles/{id}"
-    },
-    "App\\Adapters\\Http\\Actions\\Comment\\CommentCreateAction": {
-      "method": "POST",
-      "uri": "/api/comments"
-    },
-    "App\\Adapters\\Http\\Actions\\Comment\\CommentDeleteAction": {
-      "method": "DELETE",
-      "uri": "/api/comments/{id}"
-    },
-    "App\\Adapters\\Http\\Actions\\Comment\\CommentUpdateAction": {
-      "method": "PUT",
-      "uri": "/api/comments/{id}"
-    }
+  "articleCreate": {
+    "namespace": "App\\Adapters\\Http\\Actions\\Article\\ArticleCreateAction",
+    "method": "POST",
+    "uri": "/api/articles"
+  },
+  "articleDelete": {
+    "namespace": "App\\Adapters\\Http\\Actions\\Article\\ArticleDeleteAction",
+    "method": "DELETE",
+    "uri": "/api/articles/{id}"
+  },
+  "articleGetComments": {
+    "namespace": "App\\Adapters\\Http\\Actions\\Article\\ArticleGetCommentsAction",
+    "method": "GET",
+    "uri": "/api/articles/{id}/get-comments"
+  },
+  "articleIndex": {
+    "namespace": "App\\Adapters\\Http\\Actions\\Article\\ArticleIndexAction",
+    "method": "GET",
+    "uri": "/api/articles"
+  },
+  "articleShow": {
+    "namespace": "App\\Adapters\\Http\\Actions\\Article\\ArticleShowAction",
+    "method": "GET",
+    "uri": "/api/articles/{id}"
+  },
+  "articleUpdate": {
+    "namespace": "App\\Adapters\\Http\\Actions\\Article\\ArticleUpdateAction",
+    "method": "PUT",
+    "uri": "/api/articles/{id}"
+  },
+  "commentCreate": {
+    "namespace": "App\\Adapters\\Http\\Actions\\Comment\\CommentCreateAction",
+    "method": "POST",
+    "uri": "/api/comments"
+  },
+  "commentDelete": {
+    "namespace": "App\\Adapters\\Http\\Actions\\Comment\\CommentDeleteAction",
+    "method": "DELETE",
+    "uri": "/api/comments/{id}"
+  },
+  "commentUpdate": {
+    "namespace": "App\\Adapters\\Http\\Actions\\Comment\\CommentUpdateAction",
+    "method": "PUT",
+    "uri": "/api/comments/{id}"
   }
 }

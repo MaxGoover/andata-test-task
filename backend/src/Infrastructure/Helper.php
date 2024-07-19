@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure;
 
-final readonly class Helpers
+final readonly class Helper
 {
     public static function generateString(int $length): string
     {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Adapters\Http\Actions\Comment;
 
-use App\Infrastructure\Helpers;
+use App\Infrastructure\Helper;
 use App\Infrastructure\Rules\CommentRules;
 use App\Infrastructure\Rules\CommonRules;
 use GuzzleHttp\Exception\ClientException;
@@ -40,7 +40,7 @@ class CommentNegativeTest extends TestCaseFeature
         $this->fixtureArticle->create();
 
         /** @var ResponseInterface $response */
-        $response = $this->sendAjax('POST', 'http://localhost/api/articles', (array)$this->fixtureArticle);
+        $response = $this->sendAjax('POST', '/api/articles', (array)$this->fixtureArticle);
         $this->assertSame(200, $response->getStatusCode());
         $this->assertSame('application/json', $response->getHeader('Content-Type')[0]);
 
@@ -54,7 +54,7 @@ class CommentNegativeTest extends TestCaseFeature
     private function testDeleteArticleSuccess()
     {
         /** @var ResponseInterface $response */
-        $response = $this->sendAjax('DELETE', "http://localhost/api/articles/$this->articleId");
+        $response = $this->sendAjax('DELETE', "/api/articles/$this->articleId");
         $this->assertSame(200, $response->getStatusCode());
 
         /** @var array $responseData */
@@ -70,12 +70,12 @@ class CommentNegativeTest extends TestCaseFeature
 
     public function testCreateTitleMinLengthFailed()
     {
-        $this->fixtureComment->title = Helpers::generateString(CommentRules::TITLE_MIN_LENGTH - 1);
+        $this->fixtureComment->title = Helper::generateString(CommentRules::TITLE_MIN_LENGTH - 1);
     }
 
     public function testCreateTitleMaxLengthFailed()
     {
-        $this->fixtureComment->title = Helpers::generateString(CommentRules::TITLE_MAX_LENGTH + 1);
+        $this->fixtureComment->title = Helper::generateString(CommentRules::TITLE_MAX_LENGTH + 1);
     }
 
     public function testCreateContentRequiredFailed()
@@ -85,12 +85,12 @@ class CommentNegativeTest extends TestCaseFeature
 
     public function testCreateContentMinLengthFailed()
     {
-        $this->fixtureComment->content = Helpers::generateString(CommentRules::CONTENT_MIN_LENGTH - 1);
+        $this->fixtureComment->content = Helper::generateString(CommentRules::CONTENT_MIN_LENGTH - 1);
     }
 
     public function testCreateContentMaxLengthFailed()
     {
-        $this->fixtureComment->content = Helpers::generateString(CommentRules::CONTENT_MAX_LENGTH + 1);
+        $this->fixtureComment->content = Helper::generateString(CommentRules::CONTENT_MAX_LENGTH + 1);
     }
 
     public function testCreateAuthorUsernameRequiredFailed()
@@ -100,12 +100,12 @@ class CommentNegativeTest extends TestCaseFeature
 
     public function testCreateAuthorUsernameMinLengthFailed()
     {
-        $this->fixtureComment->author_username = Helpers::generateString(CommonRules::USERNAME_MIN_LENGTH - 1);
+        $this->fixtureComment->author_username = Helper::generateString(CommonRules::USERNAME_MIN_LENGTH - 1);
     }
 
     public function testCreateAuthorUsernameMaxLengthFailed()
     {
-        $this->fixtureComment->author_username = Helpers::generateString(CommonRules::USERNAME_MAX_LENGTH + 1);
+        $this->fixtureComment->author_username = Helper::generateString(CommonRules::USERNAME_MAX_LENGTH + 1);
     }
 
     public function testCreateAuthorEmailRequiredFailed()
@@ -120,13 +120,13 @@ class CommentNegativeTest extends TestCaseFeature
 
     public function testCreateAuthorEmailMaxLengthFailed()
     {
-        $this->fixtureComment->author_email = Helpers::generateString(CommonRules::USERNAME_MAX_LENGTH + 1);
+        $this->fixtureComment->author_email = Helper::generateString(CommonRules::USERNAME_MAX_LENGTH + 1);
     }
 
     private function testCreateCommentFailed()
     {
         try {
-            $this->sendAjax('POST', 'http://localhost/api/comments', (array)$this->fixtureComment);
+            $this->sendAjax('POST', '/api/comments', (array)$this->fixtureComment);
             $this->fail();
         } catch (ClientException $e) {
             $this->assertSame(400, $e->getResponse()->getStatusCode());
